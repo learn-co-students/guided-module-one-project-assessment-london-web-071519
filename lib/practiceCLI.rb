@@ -48,14 +48,21 @@ def create
     puts "Purchase a new work"
     puts ""
     create_new = gets.strip
-    create_record(create_new)
+    create_what(create_new)
     #options - add painting, add artist (empty array of works) create exhibit, add museum, create message for exhibit  
+end 
+
+def create_what(create_new)
+    if create_new == "Create a new exhibit"
+        create_record       
+    elsif create_new == "Purchase a new work"
+        create_new_work
+    end 
 end 
 #create_new
 #create(create_new)
 
- def create_record(create_new)
-    if create_new == "Create a new exhibit"
+ def create_record
         puts "What artist would you like to feature?"
         artist = gets.strip
         puts "What museum would you like to highlight?"
@@ -65,7 +72,9 @@ end
         puts "When would you like the exhibit to end?"
         end_date_new = gets.strip
         Exhibit.create(artist_id: Artist.all.find_by_name(artist).id, museum_id: Museum.all.find_by_name(museum).id, start_date: start_date_new, end_date: end_date_new)
-    elsif create_new == "Purchase a new work"
+    end 
+   
+    def create_new_work
         puts "Amazing!"
         puts "What is the title of the work?"
         title_new = gets.strip
@@ -85,52 +94,86 @@ end
         Work.create(title: title_new, value: value_new, year: year_new, artist_id: new_artist.id)
         else 
            Work.create(title: title_new, value: value_new, year: year_new, artist_id: Artist.all.find_by_name(artist).id)
-         end 
-end 
+    end  
 end
 
 def update
     puts ""
     puts "What records would you like to update?"
     puts ""
-    puts "Update a work's value"
+    puts "The message for an exhibit"
+    puts "The date of death for an artist"
+    puts "The value of a work"
+    puts "The end date for an exhibit to extend the run"
     puts ""
+    update_new = gets.strip
+    update_and_send(update_new)
 #options - update message for exhibit, update artist dod, update a work's value, update end of exhibit- extend run  
 end 
 
-def retrieve
-    puts "What records would you like to retrieve?"
-#options - all the artists, all the museums, all the exhibits, all the works 
-#options - museums 
-    #all the messages used at the museum 
-    #all the paintings which have appeared at the musuem 
-    #name 
-
-#options - exhibits 
-    #all the works in a given exhibit 
-    #start date
-    #end date
-    #musuem 
-    #artist 
-
-#options - artists 
-    #date of birth 
-    #date of death 
-    #works 
-    #name 
-    #artist with most works in Bmore 
-    #which artists have appeared in exhibits 
-    #which artists have not appeared in exhibits 
-
-#options - works
-    #price of work 
-    #date of creation 
-    #most valuable painting in collection 
-    #title
-    #artist 
-    #find random work to promote on website 
-    #all works created within a 20-year window of a specific year 
+def update_and_send(update_new)
+    if update_new == "The message for an exhibit"
+        update_message
+    elsif update_new == "The date of death for an artist"
+        update_dod
+        elsif update_new == "The end date for an exhibit to extend the run"
+            update_end_dat
+        end 
 end 
+
+def update_message
+    if update_new == "The message for an exhibit"
+        puts "What exhibit would you like to update? Please provide the:"
+        puts "artist"
+        artist = gets.strip 
+        puts "museum"
+        museum = gets.strip
+    end 
+
+#     def update_value(update_new)
+#         if update_new == "The value of a work"
+#             puts "Please provide the title of the work"
+#             work = gets.strip 
+#         if Work.titles.include?(work)
+#             Work.all.find_by_name(work).value = 
+
+#         else puts "That work doesnt appear to be in our collection"
+#             records = gets.strip
+# end 
+
+# def retrieve
+#     puts "What records would you like to retrieve?"
+# #options - all the artists, all the museums, all the exhibits, all the works 
+# #options - museums 
+#     #all the messages used at the museum 
+#     #all the paintings which have appeared at the musuem 
+#     #name 
+
+# #options - exhibits 
+#     #all the works in a given exhibit 
+#     #start date
+#     #end date
+#     #musuem 
+#     #artist 
+
+# #options - artists 
+#     #date of birth 
+#     #date of death 
+#     #works 
+#     #name 
+#     #artist with most works in Bmore 
+#     #which artists have appeared in exhibits 
+#     #which artists have not appeared in exhibits 
+
+# #options - works
+#     #price of work 
+#     #date of creation 
+#     #most valuable painting in collection 
+#     #title
+#     #artist 
+#     #find random work to promote on website 
+#     #all works created within a 20-year window of a specific year 
+# end 
 
 def destroy
         puts ""
