@@ -26,10 +26,10 @@
 
 ##exhibits 
 
-# winter_matisse = Exhibit.new(artist_id: Artist.all[1].id, museum_id: Museum.all[0].id, "2019-12-31")
-# fall_rodin = Exhibit.new(artist_id: Artist.all[0].id, walters, "2019-10-31") 
-# winter_finch = Exhibit.new(artist_id: Artist.all[4].id, bma, "2020-03-15") 
-# thomas_2020 = Exhibit.new(artist_id: Artist.all[5].id, museum_id: , "2020-01-01", "2020-05-31")
+# Exhibit.create(artist_id: Artist.all[1].id, museum_id: Museum.all[0].id, end_date: "2019-12-31")
+# Exhibit.create(artist_id: Artist.all[0].id, museum_id: Museum.all[1].id, end_date: "2019-10-31") 
+# Exhibit.create(artist_id: Artist.all[4].id, museum_id: Museum.all[0].id, end_date: "2020-03-15") 
+# Exhibit.create(artist_id: Artist.all[5].id, museum_id: Museum.all[0].id, start_date: "2020-01-01", end_date: "2020-05-31")
 
 # winter_matisse.add_update_description("Join Matisse in the South of France!")
 # thomas_2020.add_update_description("A Celebration of Artistic Excellent with Alma Thomas")
