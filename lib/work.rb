@@ -4,5 +4,5 @@ class Work < ActiveRecord::Base
    # Work.all[0].artist.exhibits
 end 
 
-#binding.pry
+binding.pry
 0

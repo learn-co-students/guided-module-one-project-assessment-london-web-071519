@@ -11,6 +11,14 @@
 
 # puts "hello world"
 
+puts "Welcome to the Baltimore City Art Portal!"
+puts "What would you like to do?" 
+puts ""
+puts "Create Record"
+puts "Update Record" 
+puts "Destroy Record"
+puts "Retrieve Record" 
+puts ""
 
 
 #require 
@@ -25,58 +33,61 @@ def greeting(response)
     elsif response == "Retrieve Record"
         retrieve
     else puts "I'm sorry, what would you like to do, hon?"
+        puts ""
         response = gets.strip
         greeting(response)
     end 
-
-
-
-    #     puts ""
-    #     puts "What records would you like to create?"
-    #     puts ""
-    #     puts "Plan a new exhibit"
-    #     puts "with artist"
-    #    # artist = response.gets
-    #     puts "in museum :"
-    #    # museum = response
-    #    # Exhibit.new(artist, museum)
-    #     puts ""
-    #     puts "Purchase a painting"
-    #     puts ""
-    # elsif 
-    #     response == "Update Record"
-    #     puts ""
-    #     puts "What records would you like to update?"
-    #     puts ""
-    #     puts "Update a work's value"
-    #     puts ""
-    #     puts ""
-    # elsif 
-    #     response == "Destroy Record"
-    #     puts ""
-    #     puts "Destroy forgery"
-    #     puts ""
-    # elsif 
-    #     response == "Retrieve Record"
-    # else puts "I'm sorry, what would you like to do, hon?"
-    # end 
 end 
 
 def create
     puts ""
     puts "What records would you like to create?"
     puts ""
-    puts "Plan a new exhibit"
-    puts "with artist:"
-   # artist = response.gets
-    puts "in museum :"
-    #museum = response
-   # Exhibit.new(artist, museum)
+    puts "Create a new exhibit"
     puts ""
-    puts "Purchase a painting"
+    puts "Purchase a new work"
     puts ""
-#options - add painting, add artist (empty array of works) create exhibit, add museum, create message for exhibit  
+    create_new = gets.strip
+    create_record(create_new)
+    #options - add painting, add artist (empty array of works) create exhibit, add museum, create message for exhibit  
 end 
+#create_new
+#create(create_new)
+
+ def create_record(create_new)
+    if create_new == "Create a new exhibit"
+        puts "What artist would you like to feature?"
+        artist = gets.strip
+        puts "What museum would you like to highlight?"
+        museum = gets.strip
+        puts "When would you like the exhibit to being? (defaults to today)"
+        start_date_new = gets.strip
+        puts "When would you like the exhibit to end?"
+        end_date_new = gets.strip
+        Exhibit.create(artist_id: Artist.all.find_by_name(artist).id, museum_id: Museum.all.find_by_name(museum).id, start_date: start_date_new, end_date: end_date_new)
+    elsif create_new == "Purchase a new work"
+        puts "Amazing!"
+        puts "What is the title of the work?"
+        title_new = gets.strip
+        puts "What is the value of the work?"
+        value_new = gets.strip 
+        puts "When was the work created?"
+        year_new = gets.strip 
+        puts "Who is the artist?"
+        artist = gets.strip 
+         if !(Artist.names.include?(artist))
+        puts "This artist does not yet appear in our collection!"
+        puts "When was the artist born?"
+        dob = gets.strip
+        puts "Has this artist passed away? If so, when?"
+        dod = gets.strip
+        new_artist = Artist.create(name: artist, dob: dob, dod: dod)
+        Work.create(title: title_new, value: value_new, year: year_new, artist_id: new_artist.id)
+        else 
+           Work.create(title: title_new, value: value_new, year: year_new, artist_id: Artist.all.find_by_name(artist).id)
+         end 
+end 
+end
 
 def update
     puts ""
