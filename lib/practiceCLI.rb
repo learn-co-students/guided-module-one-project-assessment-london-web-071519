@@ -9,8 +9,7 @@
 #End Exhibit (?)
 #Retrieve Information about exhibits, artistis, paintings 
 
-# puts "hello world"
-
+def loop_from_top
 puts "Welcome to the Baltimore City Art Portal!"
 puts "What would you like to do?" 
 puts ""
@@ -19,7 +18,9 @@ puts "Update Record"
 puts "Destroy Record"
 puts "Retrieve Record" 
 puts ""
-
+response = gets.strip
+greeting(response)
+end 
 
 #require 
 
@@ -75,7 +76,6 @@ end
     end 
    
     def create_new_work
-        puts "Amazing!"
         puts "What is the title of the work?"
         title_new = gets.strip
         puts "What is the value of the work?"
@@ -114,6 +114,8 @@ end
 def update_and_send(update_new)
     if update_new == "The message for an exhibit"
         update_message
+    elsif update_new == "The value of a work"
+        update_value
     elsif update_new == "The date of death for an artist"
         update_dod
         elsif update_new == "The end date for an exhibit to extend the run"
@@ -121,21 +123,33 @@ def update_and_send(update_new)
         end 
 end 
 
-def update_message
-    if update_new == "The message for an exhibit"
-        puts "What exhibit would you like to update? Please provide the:"
-        puts "artist"
-        artist = gets.strip 
-        puts "museum"
-        museum = gets.strip
-    end 
+# def update_message figure out how to add a message :)
+#     if update_new == "The message for an exhibit"
+#         puts "What exhibit would you like to update? Please provide the:"
+#         puts "artist"
+#         artist = gets.strip 
+#         puts "museum"
+#         museum = gets.strip
 
-#     def update_value(update_new)
-#         if update_new == "The value of a work"
-#             puts "Please provide the title of the work"
-#             work = gets.strip 
-#         if Work.titles.include?(work)
-#             Work.all.find_by_name(work).value = 
+#     end 
+
+     def update_value
+            puts "Please provide the title of the work"
+             work = gets.strip 
+        if Work.titles.include?(work)
+            puts "What is the new value?"
+            new_value = gets.strip
+             work_to_update = Work.all.find_by_title(work)
+             work_to_update.value = new_value
+        else 
+            puts "It looks like that work isn't in our collection? Would you like to add it?"
+            response = gets.strip 
+            if response == y || yes 
+                create_new_work
+            else loop_from_top
+            end 
+        end  
+    end 
 
 #         else puts "That work doesnt appear to be in our collection"
 #             records = gets.strip
@@ -184,3 +198,5 @@ def destroy
 # destroy a museum if it burns down b/c shit happens 
 
 end 
+
+ #for entire method

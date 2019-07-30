@@ -4,7 +4,7 @@ class Work < ActiveRecord::Base
    # Work.all[0].artist.exhibits
 
     def Work.titles
-    Work.all.map do |works|
+        Work.all.map do |works|
         works.title
     end 
     end 
