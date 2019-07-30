@@ -174,27 +174,29 @@ end
         loop_from_top
     end 
 
-    # def update_end_date -- this isnt working
-    #     puts "What exhibit would you like to update? Please provide the:"
-    #     puts "Artist Name"
-    #     artist = gets.strip 
-    #     puts "End Date"
-    #     new_end_date = gets.strip
-    #     if Exhibit.find_exhibit(artist) && Exhibit.find_exhibit(new_end_date) 
-
-    #         to_update = 
-    #         to_update.end_date = new_end_date
-    #         #binding.pry
-    #     else 
-    #         puts "I dont see the requested exhibit, would you like to create a new exhibit?"
-    #         response = gets.strip 
-    #         if response == "y" || response == "yes" || response == "please"
-    #             create_record
-    #         else 
-    #             loop_from_top
-    #         end 
-    #     end 
-    # end 
+    def update_end_date 
+        puts "What exhibit would you like to update? Please provide the:"
+        puts "Artist Name"
+        artist = gets.strip 
+        puts "Current End Date"
+        end_date = gets.strip
+        puts "New End Date"
+        new_end_date = gets.strip
+         if Exhibit.find_exhibit_by_name(artist, end_date) 
+             exhibit_update = Exhibit.find_exhibit_by_name(artist, end_date) 
+             exhibit_update.end_date = new_end_date
+             exhibit_update.save
+             loop_from_top
+         else
+            puts "I dont see the requested exhibit, would you like to create a new exhibit?"
+            response = gets.strip 
+            if response == "y" || response == "yes" || response == "please"
+                create_record
+            else 
+                loop_from_top
+            end 
+        end 
+    end 
 
 
  def retrieve
@@ -208,17 +210,17 @@ end
      puts "All works created within a specified period"
      puts "Select a random work to feature on the website" 
      puts ""
-     retrieve_new = gets.strip
-     retrieval_options(retrieve_new)
+     retrieve_this = gets.strip
+     retrieve_options(retrieve_this)
  end 
 
- def retrieval_options(retrieve_new)
-        if retrieve_new == "The Artists represented in Baltimore"
+ def retrieve_options(retrieve_this)
+        if retrieve_this == "The Artists represented in Baltimore"
             all_artists
-        elsif retrieve_new == "The most valuable work in Baltimore"
+        elsif retrieve_this == "The most valuable work in Baltimore"
             most_valuable
-        # else retrieve_new == "Select random"
-        #     Work.randomly_select
+         else retrieve_this == "Select random"
+             Work.randomly_select
         end 
  end 
 
@@ -269,7 +271,5 @@ def destroy
 
 #options - destroy a painting if a forgery or if its sold, destroy an exhibit if it ends, 
 # destroy a museum if it burns down b/c shit happens 
-
-end 
-
- #for entire method
+#end 
+end
