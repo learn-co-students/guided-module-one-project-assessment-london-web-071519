@@ -12,8 +12,7 @@
 # puts "hello world"
 
 
-# require "pry"
-# require "date"
+
 #require 
 
 def greeting(response)

@@ -14,3 +14,6 @@ puts ""
 
 response = gets.strip 
 greeting(response)
+
+# binding.pry
+# 0
