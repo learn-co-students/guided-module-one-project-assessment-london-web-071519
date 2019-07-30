@@ -33,11 +33,17 @@ def greeting(response)
         destroy 
     elsif response == "Retrieve Record"
         retrieve
+    elsif response == "Exit" || response == "exit" || response == "esc" 
+        exit_loop
     else puts "I'm sorry, what would you like to do, hon?"
         puts ""
         response = gets.strip
         greeting(response)
     end 
+end 
+
+def exit_loop
+   # puts ""
 end 
 
 def create
@@ -73,6 +79,7 @@ end
         puts "When would you like the exhibit to end?"
         end_date_new = gets.strip
         Exhibit.create(artist_id: Artist.all.find_by_name(artist).id, museum_id: Museum.all.find_by_name(museum).id, start_date: start_date_new, end_date: end_date_new)
+        loop_from_top
     end 
    
     def create_new_work
@@ -92,9 +99,11 @@ end
         dod = gets.strip
         new_artist = Artist.create(name: artist, dob: dob, dod: dod)
         Work.create(title: title_new, value: value_new, year: year_new, artist_id: new_artist.id)
+        loop_from_top
         else 
            Work.create(title: title_new, value: value_new, year: year_new, artist_id: Artist.all.find_by_name(artist).id)
-    end  
+           loop_from_top
+        end  
 end
 
 def update
@@ -141,15 +150,31 @@ end
             new_value = gets.strip
              work_to_update = Work.all.find_by_title(work)
              work_to_update.value = new_value
+             work_to_update.save
+             loop_from_top
         else 
             puts "It looks like that work isn't in our collection? Would you like to add it?"
             response = gets.strip 
-            if response == y || yes 
+            if response == "y" || response == "yes" || response == "please"
                 create_new_work
-            else loop_from_top
+            else 
+                loop_from_top
             end 
         end  
     end 
+
+    def update_dod 
+        puts "What is the name of the artist?"
+        name_artist = gets.strip 
+        puts "What is the artist's year of death?"
+        new_dod = gets.strip 
+        passed = Artist.all.find_by_name(name_artist)
+        passed.dod = new_dod
+        passed.save 
+        loop_from_top
+    end 
+
+   # end 
 
 #         else puts "That work doesnt appear to be in our collection"
 #             records = gets.strip
