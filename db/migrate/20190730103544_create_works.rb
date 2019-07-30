@@ -6,5 +6,5 @@ class CreateWorks < ActiveRecord::Migration[5.2]
       t.integer :value
       t.integer :year 
   end
+  end
 end
-end 

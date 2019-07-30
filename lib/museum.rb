@@ -6,5 +6,3 @@ end
 
 # bma = Museum.new(name: "Baltimore Museum of Art")
 # walters = Museum.new(name: "Walters Art Museum")
-
-

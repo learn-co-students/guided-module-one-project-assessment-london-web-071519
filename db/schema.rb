@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_30_091735) do
+ActiveRecord::Schema.define(version: 2019_07_30_104001) do
 
   create_table "artists", force: :cascade do |t|
     t.string "name"
     t.integer "dob"
-    t.integer "dod", default: 0
+    t.integer "dod"
   end
 
   create_table "exhibits", force: :cascade do |t|
