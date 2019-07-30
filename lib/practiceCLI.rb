@@ -113,7 +113,7 @@ def update
     puts "The message for an exhibit"
     puts "The date of death for an artist"
     puts "The value of a work"
-    puts "The end date for an exhibit to extend the run"
+    puts "The end date for an exhibit"
     puts ""
     update_new = gets.strip
     update_and_send(update_new)
@@ -127,8 +127,8 @@ def update_and_send(update_new)
         update_value
     elsif update_new == "The date of death for an artist"
         update_dod
-        elsif update_new == "The end date for an exhibit to extend the run"
-            update_end_dat
+        elsif update_new == "The end date for an exhibit"
+            update_end_date
         end 
 end 
 
@@ -159,9 +159,9 @@ end
                 create_new_work
             else 
                 loop_from_top
-            end 
-        end  
+         end  
     end 
+end 
 
     def update_dod 
         puts "What is the name of the artist?"
@@ -174,14 +174,62 @@ end
         loop_from_top
     end 
 
-   # end 
+    # def update_end_date -- this isnt working
+    #     puts "What exhibit would you like to update? Please provide the:"
+    #     puts "Artist Name"
+    #     artist = gets.strip 
+    #     puts "End Date"
+    #     new_end_date = gets.strip
+    #     if Exhibit.find_exhibit(artist) && Exhibit.find_exhibit(new_end_date) 
 
-#         else puts "That work doesnt appear to be in our collection"
-#             records = gets.strip
-# end 
+    #         to_update = 
+    #         to_update.end_date = new_end_date
+    #         #binding.pry
+    #     else 
+    #         puts "I dont see the requested exhibit, would you like to create a new exhibit?"
+    #         response = gets.strip 
+    #         if response == "y" || response == "yes" || response == "please"
+    #             create_record
+    #         else 
+    #             loop_from_top
+    #         end 
+    #     end 
+    # end 
 
-# def retrieve
-#     puts "What records would you like to retrieve?"
+
+ def retrieve
+     puts "What records would you like to retrieve?"
+     puts ""
+     puts "The Artists represented in Baltimore"
+     puts "The Museums"
+     puts "All works owned by the city"
+     puts "The most valuable work in Baltimore"
+     puts "All works that have appeared in a specific museum"
+     puts "All works created within a specified period"
+     puts "Select a random work to feature on the website" 
+     puts ""
+     retrieve_new = gets.strip
+     retrieval_options(retrieve_new)
+ end 
+
+ def retrieval_options(retrieve_new)
+        if retrieve_new == "The Artists represented in Baltimore"
+            all_artists
+        elsif retrieve_new == "The most valuable work in Baltimore"
+            most_valuable
+        # else retrieve_new == "Select random"
+        #     Work.randomly_select
+        end 
+ end 
+
+ def all_artists
+    Artist.all
+ end 
+
+ def most_valuable
+    Work.most_valuable_work
+ end 
+
 # #options - all the artists, all the museums, all the exhibits, all the works 
 # #options - museums 
 #     #all the messages used at the museum 
