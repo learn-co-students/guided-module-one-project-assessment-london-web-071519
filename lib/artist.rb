@@ -5,7 +5,7 @@ class Artist <ActiveRecord::Base
 
     def Artist.names
         Artist.all.map do |artist|
-            artist.name
+            puts artist.name
         end 
     end 
 end 

@@ -204,7 +204,7 @@ end
         if destroy_new == "Destroy Forgery"
             forgery_destroy 
         else destroy_new == "Sell Work"
-             sell
+            forgery_destroy
         end 
     end
 
@@ -213,7 +213,7 @@ end
         fake = gets.strip
         fake_work = Work.all.find_by_title(fake)
         fake_work.destroy
-        loop_from_top
+        destroy
     end 
 #### everything above here works 
 
@@ -237,18 +237,50 @@ end
             all_artists
         elsif retrieve_this == "The most valuable work in Baltimore"
             most_valuable
+        elsif retrieve_this == "All works created within a specified period"
+            work_by_period 
          else retrieve_this == "Select random"
-             Work.randomly_select
-        end 
+            randomly_select
+         end
  end 
 
  def all_artists
-    Artist.all
+    Artist.names 
+    puts ""
+    retrieve
  end 
 
- def most_valuable
-    Work.most_valuable_work
- end 
+#  def most_valuable why does this not work?
+#     Work.most_valuable_work
+#  end 
+
+def work_by_period 
+    puts "What period are you interested in learning about?"
+    puts "Please provide a year to start our search!"
+    year = gets.strip
+    puts "Check out the below works in Baltimore you can see!"
+    Work.by_period(year)
+    puts ""
+    puts "Would you like to retrieve a new record?"
+    response = gets.strip 
+    if response == "y" || response == "yes" || response == "please"
+        retrieve
+    else 
+        loop_from_top
+ end  
+end 
+
+def randomly_select
+    Work.randomly_select
+    puts ""
+    puts "Would you like to retrieve a new record?"
+    response = gets.strip 
+    if response == "y" || response == "yes" || response == "please"
+        retrieve
+    else 
+        loop_from_top
+ end  
+end 
 
 # #options - all the artists, all the museums, all the exhibits, all the works 
 # #options - museums 

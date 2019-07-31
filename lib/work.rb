@@ -10,24 +10,29 @@ class Work < ActiveRecord::Base
     end 
     
     def Work.most_valuable_work #find most valuable work in city collection 
-        Work.all.inject {|acc, work| acc.price > work.price ? acc : work}
+        var1 = Work.all.inject {|acc, work| acc.value > work.value ? acc.title : work.title}
+        var1
     end 
 
     def Work.randomly_select #find work to promote from collection on website - to change daily 
-        Work.all.sample 
+        var1 = Work.all.sample 
+        var2 = Artist.all.find_by(id: var1.artist_id)
+        puts var1.title 
+        puts var1.value 
+        puts var1.year 
+        puts var2.name
     end 
+
 
     def Work.by_period(year) #find all works within a 20-year time period; can i do this with .map? 
         period = []
         Work.all.each do |work| 
-            if work.date < year + 10 && work.date > year - 10
-                period << work 
+            if work.year < (year.to_i + 10) && work.year > (year.to_i - 10)
+                period << work.title 
             end 
         end 
-        period 
+        puts period 
     end 
-
 end 
 
 #binding.pry
-0
