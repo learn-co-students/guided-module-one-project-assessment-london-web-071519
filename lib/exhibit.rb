@@ -3,17 +3,24 @@ class Exhibit < ActiveRecord::Base
     belongs_to :artist
     has_many :works, through: :artist #Exhibit.all[0].artist.works
 
-    def Exhibit.find_exhibit_by_name(artist, end_date) 
-       var = nil 
-        Exhibit.all.each do |exhibit| 
-            if exhibit.artist.name == artist && exhibit.end_date == end_date
-              var = exhibit 
-            end 
-        end 
-     var 
-    end 
+    # def Exhibit.find_exhibit_by_name(artist, museum)
+    #     Exhibit.all.each do |exhibit| 
+    #         if exhibit.artist.name == artist && exhibit.museum.name == museum
+    #           puts "This exhibit began on #{exhibit.start_date} and will/did end on #{exhibit.end_date}." 
+    #         else 
+    #           puts "No such exhibit exists in our database. Would you like to create one?"
+    #             response = gets.strip 
+    #               if response == "y" || response == "yes" || response == "please"
+    #                     create_record
+    #                      else 
+    #                       retrieve_loop
+    #                    end  
+    #         end 
+    #     end 
+    # end 
 
-    #binding.pry
+    #"Henri Matisse"
+    # "Baltimore Museum of Art"
 
 #     def Exhibit.find_exhibit_by_end(end_date) 
 #         Exhibit.all.select {|exhibit| exhibit.end_date == end_date}

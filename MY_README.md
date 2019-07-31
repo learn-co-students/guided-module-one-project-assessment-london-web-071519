@@ -3,7 +3,7 @@ Welcome to the Arts Administrative Database of Baltimore, MD, hon!
  Write a README detailing:
   <!-- * How to install your application. -->
   <!-- * How to run your application. -->
-  * How to use your application (commands that can be run).
+  <!-- * How to use your application (commands that can be run). -->
   * What your program looks like (screenshots).
 
 ### How to install and run this app
@@ -48,6 +48,7 @@ Retrieve records from the City's database, specifically:
 
 * The artists represented in the City's collection 
 * The most valuable work currently in the City's collection 
+* 
 * All the works in the City's collection witin a 20-year window of an input year 
 * Randomly selected works to feature 
 

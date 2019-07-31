@@ -32,7 +32,6 @@ end
 
 
 def exit_loop
-    puts ""
 end 
 
 exit_loop
@@ -248,11 +247,11 @@ end
      puts "The Artists represented in Baltimore"
     #  puts "Baltimore's Museums"
     #  puts "All works owned by the city"
-     puts "The most valuable work in Baltimore"
-     puts "Find an exhibit by artist and end date"
+     puts "The most valuable work in Baltimore' collection"
+     puts "Find an exhibit by artist and museum"
      puts "All works that have appeared in a specific museum"
      puts "All works created within a specified period"
-     puts "Select a random work to feature on the website" 
+     puts "Select a random work to feature" 
      puts ""
      retrieve_this = gets.strip
      retrieve_options(retrieve_this)
@@ -275,20 +274,40 @@ end
             most_valuable
         elsif retrieve_this == "All works created within a specified period"
             work_by_period 
-        elsif retrieve_this == "Find an exhibit by artist and end date"
-            exhibit_by_artist_end_date
+        elsif retrieve_this == "Find an exhibit by artist and museum"
+            exhibit_by_artist_museum
          else retrieve_this == "Select random"
             randomly_select
         end
     end 
 
-    # def exhibit_by_artist_end_date this doesnt work yet
-    #     puts "What artist are you looking for?"
-    #     artist = gets.strip
-    #     puts "What is the end date for the exhibit you are looking for?"
-    #     end_date = gets.strip 
-    #     Exhibit.find_exhibit_by_name(artist, end_date)
-    # end 
+    def exhibit_by_artist_museum 
+        puts "What artist are you looking for?"
+        artist = gets.strip
+        puts "At what museum did the exhibit take place?"
+        museum = gets.strip 
+            Exhibit.all.each do |exhibit| 
+             if exhibit.artist.name == artist && exhibit.museum.name == museum
+                puts "This exhibit began on #{exhibit.start_date} and will/did end on #{exhibit.end_date}." 
+                retrieve_loop
+                else 
+                   puts "No such exhibit exists in our database."
+                   create_new
+                end
+            end
+        end 
+
+#     else puts "Would you like to create a new exhibit?"
+#         response = gets.strip 
+#          if response == "y" || response == "yes" || response == "please"
+#            create_record
+#          else 
+#              loop_from_top
+#          end  
+#      end 
+#     end 
+# end 
+
 
     def all_artists
         Artist.names 
@@ -313,6 +332,7 @@ end
     end 
 
     def randomly_select
+        puts "Why not feature this treasure!"
         Work.randomly_select
         puts ""
         retrieve_loop
