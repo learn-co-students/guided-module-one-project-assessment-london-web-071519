@@ -1,32 +1,64 @@
 Welcome to the Arts Administrative Database of Baltimore, MD, hon! 
 
-Using this datavase, you will be able to:
+ Write a README detailing:
+  <!-- * How to install your application. -->
+  <!-- * How to run your application. -->
+  * How to use your application (commands that can be run).
+  * What your program looks like (screenshots).
 
-note - 
-*dates follow american convention month-date 
-*defaults to artists being alive, exhibit start date today 
-*assumes that all works are the common property of the City rather than belonging to a specific museum 
+### How to install and run this app
 
-Review all the paintings currently in the collections belonging to the City of Baltimore 
+To install this application, please clone it from account: 
+https://github.com/seligmar/guided-module-one-project-assessment-london-web-071519
 
+To run the app, you will need to run 'bundle install'. 
 
-Review all the artists represented 
+Included in the environment are: 
+require 'bundler'
+require "date"
 
-Create new exhibitis at the Baltimore Museum of Art or Walters Art Museum 
-Create new records for purchased works 
+Please make sure the gems are loaded to your machine, in addition to sqlite3.
 
-Destroy records for those works which were sold or found fraudulent 
-Destroy exhibit records after an exhibit ends 
+To initialize the app, please run 
 
-Update dates of death for artists 
+ruby bin/run.rb
 
-Update the price of paitingings after appraisals 
+in your terminal. You will be welcomed to the portal and prompted to choose an option. 
 
-The keywords to access this database are 
+### How to use this app (functionality)
 
+Using this database, you will be able to: 
 
-*it is a fantastic thing for art that this is not the case, as that shit would have "dissapeared" years ago 
+Create records for the City's database, specifically:
+
+* Create exhibits 
+* Add works to the City's collection
+
+Update records within the database, specifically: 
+
+* The value of a work in the City's collection 
+* The date of death for an artist
+* The end date for an exhibit
+
+Delete records from the City's database, specifically: 
+
+* works to be removed due to sale or forgery 
+
+Retrieve records from the City's database, specifically: 
+
+* The artists represented in the City's collection 
+* The most valuable work currently in the City's collection 
+* All the works in the City's collection witin a 20-year window of an input year 
+* Randomly selected works to feature 
+
+### Screenshots 
+
+### Notes 
+
+* this app defaults to the American convention month-day 
+* the default start date for an exhibit is today; the default date of death for an artist is nil 
+* this app presumes that all works are the common property of the City rather than belonging to a specific museum
+* this app presumes that all works by an aftist are included in any exhibit
 
 "hon" is Baltimore for "honey" and its a whole thing:  
 https://en.wikipedia.org/wiki/Culture_of_Baltimore#Hon 
-
