@@ -1,4 +1,5 @@
 Welcome to the Arts Administrative Database of Baltimore, MD, hon! 
+
 Using this datavase, you will be able to:
 
 note - 
