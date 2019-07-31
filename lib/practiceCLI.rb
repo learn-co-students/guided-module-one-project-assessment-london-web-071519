@@ -7,6 +7,7 @@ puts "Create Record"
 puts "Update Record" 
 puts "Destroy Record"
 puts "Retrieve Record" 
+puts "Exit"
 puts ""
 response = gets.strip 
 greeting(response)
@@ -209,13 +210,12 @@ end
     end
 
     def forgery_destroy
-     puts "What is the title of the work you would like to destroy?"
+     puts "What is the title of the work you would like to sell or destroy?"
         fake = gets.strip
         fake_work = Work.all.find_by_title(fake)
         fake_work.destroy
         destroy
     end 
-#### everything above here works 
 
  def retrieve
      puts "What records would you like to retrieve?"
@@ -241,7 +241,7 @@ end
             work_by_period 
          else retrieve_this == "Select random"
             randomly_select
-         end
+        end
  end 
 
  def all_artists
@@ -250,9 +250,9 @@ end
     retrieve
  end 
 
-#  def most_valuable why does this not work?
-#     Work.most_valuable_work
-#  end 
+ def most_valuable 
+    Work.most_valuable_work
+ end 
 
 def work_by_period 
     puts "What period are you interested in learning about?"

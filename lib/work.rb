@@ -10,8 +10,12 @@ class Work < ActiveRecord::Base
     end 
     
     def Work.most_valuable_work #find most valuable work in city collection 
-        var1 = Work.all.inject {|acc, work| acc.value > work.value ? acc.title : work.title}
-        var1
+        var1 = Work.all.inject {|acc, work| acc.value > work.value ? acc : work}
+        var2 = Artist.all.find_by(id: var1.artist_id)
+        puts var1.title 
+        puts var1.value 
+        puts var1.year 
+        puts var2.name 
     end 
 
     def Work.randomly_select #find work to promote from collection on website - to change daily 
