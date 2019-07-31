@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_30_103853) do
+ActiveRecord::Schema.define(version: 2019_07_30_122220) do
 
   create_table "artists", force: :cascade do |t|
     t.string "name"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2019_07_30_103853) do
   create_table "exhibits", force: :cascade do |t|
     t.integer "artist_id"
     t.integer "museum_id"
-    t.string "start_date", default: "2019-07-30"
+    t.string "start_date", default: "2019-07-31"
     t.string "end_date"
   end
 
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2019_07_30_103853) do
     t.string "title"
     t.integer "value"
     t.integer "year"
+    t.integer "artist_id"
   end
 
 end

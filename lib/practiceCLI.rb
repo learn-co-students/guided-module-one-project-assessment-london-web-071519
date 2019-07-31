@@ -1,16 +1,6 @@
-#!/usr/bin/env ruby per https://learn.co/tracks/bootcamp-prep/ruby-fundamentals/command-line-applications/cli-applications-in-ruby 
-# ruby bin/< your file name >
-# $ chmod +x <file_name>
-
-#Create an Exhibit (what artist, what museum - list them all?)
-#Purchase a Work (by which artist? create new artist and painting? from painting class Artist.new)
-#Update Records 
-#Delete Records eg Destroy a Work, sell a work  
-#End Exhibit (?)
-#Retrieve Information about exhibits, artistis, paintings 
+require "pry"
 
 def loop_from_top
-puts "Welcome to the Baltimore City Art Portal!"
 puts "What would you like to do?" 
 puts ""
 puts "Create Record"
@@ -18,11 +8,10 @@ puts "Update Record"
 puts "Destroy Record"
 puts "Retrieve Record" 
 puts ""
-response = gets.strip
+response = gets.strip 
 greeting(response)
 end 
 
-#require 
 
 def greeting(response)
     if response == "Create Record"
@@ -42,9 +31,13 @@ def greeting(response)
     end 
 end 
 
+#greeting(response) 
+
 def exit_loop
-   # puts ""
+    puts ""
 end 
+
+exit_loop
 
 def create
     puts ""
@@ -59,6 +52,8 @@ def create
     #options - add painting, add artist (empty array of works) create exhibit, add museum, create message for exhibit  
 end 
 
+
+
 def create_what(create_new)
     if create_new == "Create a new exhibit"
         create_record       
@@ -66,8 +61,7 @@ def create_what(create_new)
         create_new_work
     end 
 end 
-#create_new
-#create(create_new)
+
 
  def create_record
         puts "What artist would you like to feature?"
@@ -271,5 +265,4 @@ def destroy
 
 #options - destroy a painting if a forgery or if its sold, destroy an exhibit if it ends, 
 # destroy a museum if it burns down b/c shit happens 
-#end 
-end
+end 
