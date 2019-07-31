@@ -1,28 +1,31 @@
-require "pry"
+old_logger = ActiveRecord::Base.logger
+ActiveRecord::Base.logger = nil
+#To turn it back on:
+#ActiveRecord::Base.logger = old_logger
 
 def loop_from_top
 puts "What would you like to do?" 
 puts ""
-puts "Create Record"
-puts "Update Record" 
-puts "Destroy Record"
-puts "Retrieve Record" 
+puts "1 Create Record"
+puts "2 Update Record" 
+puts "3 Destroy Record"
+puts "4 Retrieve Record" 
 puts ""
 response = gets.strip 
 greeting(response)
 end 
 
 def greeting(response)
-    if response == "Create Record"
+    if response == "Create Record" || "1"
         create 
-    elsif response == "Update Record"
+    elsif response == "Update Record" || "2"
         update 
-    elsif response == "Destroy Record"
+    elsif response == "Destroy Record" || "3"
         destroy 
-    elsif response == "Retrieve Record"
+    elsif response == "Retrieve Record" || "4"
         retrieve
     elsif response == "Exit" || response == "exit" || response == "esc" 
-        exit_loop
+        exit
     else puts "I'm sorry, what would you like to do, hon?"
         puts ""
         response = gets.strip
@@ -31,18 +34,13 @@ def greeting(response)
 end 
 
 
-def exit_loop
-end 
-
-exit_loop
-
 def create
     puts ""
     puts "What records would you like to create?"
     puts ""
-    puts "Create a new exhibit"
+    puts "1 Create a new exhibit"
     puts ""
-    puts "Purchase a new work"
+    puts "2 Purchase a new work"
     puts ""
     create_new = gets.strip
     create_what(create_new)
@@ -54,14 +52,14 @@ def create_loop
     if response == "y" || response == "yes" || response == "please"
         create
     else 
-        loop_from_top
+        exit
  end  
 end
 
 def create_what(create_new)
-    if create_new == "Create a new exhibit"
+    if create_new == "Create a new exhibit" || "1"
         create_record       
-    elsif create_new == "Purchase a new work"
+    elsif create_new == "Purchase a new work" || "2"
         create_new_work
     end 
 end 
@@ -109,23 +107,20 @@ def update
     puts ""
     puts "What records would you like to update?"
     puts ""
-    puts "The message for an exhibit"
-    puts "The date of death for an artist"
-    puts "The value of a work"
-    puts "The end date for an exhibit"
+    puts "1 The date of death for an artist"
+    puts "2 The value of a work"
+    puts "3 The end date for an exhibit"
     puts ""
     update_new = gets.strip
     update_and_send(update_new) 
 end 
 
 def update_and_send(update_new)
-    # if update_new == "The message for an exhibit"
-    #     update_message
-    if update_new == "The value of a work"
+    if update_new == "The value of a work" || "1"
         update_value
-    elsif update_new == "The date of death for an artist"
+    elsif update_new == "2 The date of death for an artist" || "2"
         update_dod
-        elsif update_new == "The end date for an exhibit"
+        elsif update_new == "3 The end date for an exhibit" || "3"
             update_end_date
         end 
     end 
@@ -136,21 +131,10 @@ def update_and_send(update_new)
             if response == "y" || response == "yes" || response == "please"
                 update
             else 
-                loop_from_top
+                exit
          end  
     end
         
-
-# def update_message figure out how to add a message :)
-#     if update_new == "The message for an exhibit"
-#         puts "What exhibit would you like to update? Please provide the:"
-#         puts "artist"
-#         artist = gets.strip 
-#         puts "museum"
-#         museum = gets.strip
-
-#     end 
-
      def update_value
             puts "Please provide the title of the work"
              work = gets.strip 
@@ -236,7 +220,7 @@ end
             if response == "y" || response == "yes" || response == "please"
                 destroy
             else 
-                loop_from_top
+                exit
             end  
         end 
 
@@ -244,14 +228,12 @@ end
      puts ""
      puts "What records would you like to retrieve?"
      puts ""
-     puts "The Artists represented in Baltimore"
-    #  puts "Baltimore's Museums"
-    #  puts "All works owned by the city"
-     puts "The most valuable work in Baltimore' collection"
-     puts "Find an exhibit by artist and museum"
-     puts "All works that have appeared in a specific museum"
-     puts "All works created within a specified period"
-     puts "Select a random work to feature" 
+     puts "1 The Artists represented in Baltimore"
+     puts "2 The most valuable work in Baltimore' collection"
+     puts "3 Find an exhibit by artist and museum"
+     puts "4 All works that have appeared in a specific museum"
+     puts "5 All works created within a specified period"
+     puts "6 Select a random work to feature" 
      puts ""
      retrieve_this = gets.strip
      retrieve_options(retrieve_this)
@@ -263,23 +245,29 @@ end
     if response == "y" || response == "yes" || response == "please"
         retrieve
     else 
-        loop_from_top
+        exit
  end  
 end
 
  def retrieve_options(retrieve_this)
-        if retrieve_this == "The Artists represented in Baltimore"
+        if retrieve_this == "The Artists represented in Baltimore" || retrieve_this == "1"
             all_artists
-        elsif retrieve_this == "The most valuable work in Baltimore"
+        elsif retrieve_this == "The most valuable work in Baltimore" || retrieve_this == "2"
             most_valuable
-        elsif retrieve_this == "All works created within a specified period"
+        elsif retrieve_this == "All works created within a specified period" || retrieve_this == "3"
             work_by_period 
-        elsif retrieve_this == "Find an exhibit by artist and museum"
+            # elsif "All works that have appeared in a specific museum" || retrieve_this == "4"
+            #     works_by_museum 
+        elsif retrieve_this == "Find an exhibit by artist and museum" || retrieve_this == "5"
             exhibit_by_artist_museum
-         else retrieve_this == "Select random"
+         else retrieve_this == "Select random" || retrieve_this == "6"
             randomly_select
         end
     end 
+
+    # def works_by_museum
+    # end 
+
 
     def exhibit_by_artist_museum 
         puts "What artist are you looking for?"
@@ -292,25 +280,14 @@ end
                 retrieve_loop
                 else 
                    puts "No such exhibit exists in our database."
-                   create_new
+                   create_record
                 end
             end
         end 
 
-#     else puts "Would you like to create a new exhibit?"
-#         response = gets.strip 
-#          if response == "y" || response == "yes" || response == "please"
-#            create_record
-#          else 
-#              loop_from_top
-#          end  
-#      end 
-#     end 
-# end 
-
 
     def all_artists
-        Artist.names 
+        (Artist.names).uniq 
         puts ""
         retrieve_loop
     end 

@@ -38,5 +38,3 @@ class Exhibit < ActiveRecord::Base
 #     var1
  end 
 
-# binding.pry
-# 0

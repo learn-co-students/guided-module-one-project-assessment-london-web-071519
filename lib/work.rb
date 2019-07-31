@@ -39,4 +39,4 @@ class Work < ActiveRecord::Base
     end 
 end 
 
-#binding.pry
+

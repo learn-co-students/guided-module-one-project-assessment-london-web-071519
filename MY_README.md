@@ -52,6 +52,8 @@ Retrieve records from the City's database, specifically:
 * All the works in the City's collection witin a 20-year window of an input year 
 * Randomly selected works to feature 
 
+To exit the app, type in exit twice 
+
 ### Screenshots 
 
 ### Notes 

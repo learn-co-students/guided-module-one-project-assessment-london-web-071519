@@ -2,7 +2,7 @@ require_relative '../config/environment'
 require_relative '../lib/practiceCLI.rb'
 
 
-# binding.pry
+#  binding.pry
 
 puts "Welcome to the Baltimore City Art Portal!"	
 loop_from_top
