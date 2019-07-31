@@ -12,7 +12,6 @@ response = gets.strip
 greeting(response)
 end 
 
-
 def greeting(response)
     if response == "Create Record"
         create 
@@ -31,7 +30,6 @@ def greeting(response)
     end 
 end 
 
-#greeting(response) 
 
 def exit_loop
     puts ""
@@ -49,7 +47,6 @@ def create
     puts ""
     create_new = gets.strip
     create_what(create_new)
-    #options - add painting, add artist (empty array of works) create exhibit, add museum, create message for exhibit  
 end 
 
 
@@ -66,6 +63,7 @@ end
  def create_record
         puts "What artist would you like to feature?"
         artist = gets.strip
+        puts "The following works are available to display:" #retrieve all works by artist
         puts "What museum would you like to highlight?"
         museum = gets.strip
         puts "When would you like the exhibit to being? (defaults to today)"
@@ -73,7 +71,7 @@ end
         puts "When would you like the exhibit to end?"
         end_date_new = gets.strip
         Exhibit.create(artist_id: Artist.all.find_by_name(artist).id, museum_id: Museum.all.find_by_name(museum).id, start_date: start_date_new, end_date: end_date_new)
-        loop_from_top
+        create
     end 
    
     def create_new_work
@@ -93,10 +91,10 @@ end
         dod = gets.strip
         new_artist = Artist.create(name: artist, dob: dob, dod: dod)
         Work.create(title: title_new, value: value_new, year: year_new, artist_id: new_artist.id)
-        loop_from_top
+        create
         else 
            Work.create(title: title_new, value: value_new, year: year_new, artist_id: Artist.all.find_by_name(artist).id)
-           loop_from_top
+           create
         end  
 end
 
@@ -115,9 +113,9 @@ def update
 end 
 
 def update_and_send(update_new)
-    if update_new == "The message for an exhibit"
-        update_message
-    elsif update_new == "The value of a work"
+    # if update_new == "The message for an exhibit"
+    #     update_message
+    if update_new == "The value of a work"
         update_value
     elsif update_new == "The date of death for an artist"
         update_dod
@@ -145,14 +143,14 @@ end
              work_to_update = Work.all.find_by_title(work)
              work_to_update.value = new_value
              work_to_update.save
-             loop_from_top
+             update
         else 
             puts "It looks like that work isn't in our collection? Would you like to add it?"
             response = gets.strip 
             if response == "y" || response == "yes" || response == "please"
                 create_new_work
             else 
-                loop_from_top
+                update
          end  
     end 
 end 
@@ -165,7 +163,7 @@ end
         passed = Artist.all.find_by_name(name_artist)
         passed.dod = new_dod
         passed.save 
-        loop_from_top
+        update
     end 
 
     def update_end_date 
@@ -180,18 +178,44 @@ end
              exhibit_update = Exhibit.find_exhibit_by_name(artist, end_date) 
              exhibit_update.end_date = new_end_date
              exhibit_update.save
-             loop_from_top
+             update
          else
             puts "I dont see the requested exhibit, would you like to create a new exhibit?"
             response = gets.strip 
             if response == "y" || response == "yes" || response == "please"
                 create_record
             else 
-                loop_from_top
+                update
             end 
         end 
     end 
 
+    def destroy
+        puts ""
+        puts "Destroy Forgery"
+        puts ""
+        puts "Sell Work"
+        puts ""
+        destroy_new = gets.strip
+        destroy_record(destroy_new)
+    end 
+
+    def destroy_record(destroy_new)
+        if destroy_new == "Destroy Forgery"
+            forgery_destroy 
+        else destroy_new == "Sell Work"
+             sell
+        end 
+    end
+
+    def forgery_destroy
+     puts "What is the title of the work you would like to destroy?"
+        fake = gets.strip
+        fake_work = Work.all.find_by_title(fake)
+        fake_work.destroy
+        loop_from_top
+    end 
+#### everything above here works 
 
  def retrieve
      puts "What records would you like to retrieve?"
@@ -258,11 +282,4 @@ end
 #     #all works created within a 20-year window of a specific year 
 # end 
 
-def destroy
-        puts ""
-        puts "Destroy forgery"
-        puts ""
 
-#options - destroy a painting if a forgery or if its sold, destroy an exhibit if it ends, 
-# destroy a museum if it burns down b/c shit happens 
-end 
