@@ -7,7 +7,6 @@ puts "Create Record"
 puts "Update Record" 
 puts "Destroy Record"
 puts "Retrieve Record" 
-puts "Exit"
 puts ""
 response = gets.strip 
 greeting(response)
@@ -50,7 +49,15 @@ def create
     create_what(create_new)
 end 
 
-
+def create_loop 
+    puts "Would you like to create a new record?"
+    response = gets.strip 
+    if response == "y" || response == "yes" || response == "please"
+        create
+    else 
+        loop_from_top
+ end  
+end
 
 def create_what(create_new)
     if create_new == "Create a new exhibit"
@@ -72,7 +79,7 @@ end
         puts "When would you like the exhibit to end?"
         end_date_new = gets.strip
         Exhibit.create(artist_id: Artist.all.find_by_name(artist).id, museum_id: Museum.all.find_by_name(museum).id, start_date: start_date_new, end_date: end_date_new)
-        create
+        create_loop
     end 
    
     def create_new_work
@@ -92,12 +99,12 @@ end
         dod = gets.strip
         new_artist = Artist.create(name: artist, dob: dob, dod: dod)
         Work.create(title: title_new, value: value_new, year: year_new, artist_id: new_artist.id)
-        create
+        create_loop
         else 
            Work.create(title: title_new, value: value_new, year: year_new, artist_id: Artist.all.find_by_name(artist).id)
-           create
+           create_loop
         end  
-end
+    end
 
 def update
     puts ""
@@ -109,8 +116,7 @@ def update
     puts "The end date for an exhibit"
     puts ""
     update_new = gets.strip
-    update_and_send(update_new)
-#options - update message for exhibit, update artist dod, update a work's value, update end of exhibit- extend run  
+    update_and_send(update_new) 
 end 
 
 def update_and_send(update_new)
@@ -123,7 +129,18 @@ def update_and_send(update_new)
         elsif update_new == "The end date for an exhibit"
             update_end_date
         end 
-end 
+    end 
+
+    def update_loop
+            puts "Would you like to update a new record?"
+            response = gets.strip 
+            if response == "y" || response == "yes" || response == "please"
+                update
+            else 
+                loop_from_top
+         end  
+    end
+        
 
 # def update_message figure out how to add a message :)
 #     if update_new == "The message for an exhibit"
@@ -144,14 +161,14 @@ end
              work_to_update = Work.all.find_by_title(work)
              work_to_update.value = new_value
              work_to_update.save
-             update
+             update_loop
         else 
             puts "It looks like that work isn't in our collection? Would you like to add it?"
             response = gets.strip 
             if response == "y" || response == "yes" || response == "please"
                 create_new_work
             else 
-                update
+                update_loop
          end  
     end 
 end 
@@ -164,7 +181,7 @@ end
         passed = Artist.all.find_by_name(name_artist)
         passed.dod = new_dod
         passed.save 
-        update
+        update_loop
     end 
 
     def update_end_date 
@@ -179,14 +196,14 @@ end
              exhibit_update = Exhibit.find_exhibit_by_name(artist, end_date) 
              exhibit_update.end_date = new_end_date
              exhibit_update.save
-             update
+             update_loop
          else
             puts "I dont see the requested exhibit, would you like to create a new exhibit?"
             response = gets.strip 
             if response == "y" || response == "yes" || response == "please"
                 create_record
             else 
-                update
+                update_loop
             end 
         end 
     end 
@@ -214,16 +231,25 @@ end
         fake = gets.strip
         fake_work = Work.all.find_by_title(fake)
         fake_work.destroy
-        destroy
-    end 
+            puts ""
+            puts "Would you like to destroy a new record?"
+            response = gets.strip 
+            if response == "y" || response == "yes" || response == "please"
+                destroy
+            else 
+                loop_from_top
+            end  
+        end 
 
  def retrieve
+     puts ""
      puts "What records would you like to retrieve?"
      puts ""
      puts "The Artists represented in Baltimore"
-     puts "The Museums"
-     puts "All works owned by the city"
+    #  puts "Baltimore's Museums"
+    #  puts "All works owned by the city"
      puts "The most valuable work in Baltimore"
+     puts "Find an exhibit by artist and end date"
      puts "All works that have appeared in a specific museum"
      puts "All works created within a specified period"
      puts "Select a random work to feature on the website" 
@@ -232,6 +258,16 @@ end
      retrieve_options(retrieve_this)
  end 
 
+ def retrieve_loop 
+    puts "Would you like to retrieve a new record?"
+    response = gets.strip 
+    if response == "y" || response == "yes" || response == "please"
+        retrieve
+    else 
+        loop_from_top
+ end  
+end
+
  def retrieve_options(retrieve_this)
         if retrieve_this == "The Artists represented in Baltimore"
             all_artists
@@ -239,48 +275,48 @@ end
             most_valuable
         elsif retrieve_this == "All works created within a specified period"
             work_by_period 
+        elsif retrieve_this == "Find an exhibit by artist and end date"
+            exhibit_by_artist_end_date
          else retrieve_this == "Select random"
             randomly_select
         end
- end 
+    end 
 
- def all_artists
-    Artist.names 
-    puts ""
-    retrieve
- end 
+    # def exhibit_by_artist_end_date this doesnt work yet
+    #     puts "What artist are you looking for?"
+    #     artist = gets.strip
+    #     puts "What is the end date for the exhibit you are looking for?"
+    #     end_date = gets.strip 
+    #     Exhibit.find_exhibit_by_name(artist, end_date)
+    # end 
 
- def most_valuable 
-    Work.most_valuable_work
- end 
+    def all_artists
+        Artist.names 
+        puts ""
+        retrieve_loop
+    end 
 
-def work_by_period 
-    puts "What period are you interested in learning about?"
-    puts "Please provide a year to start our search!"
-    year = gets.strip
-    puts "Check out the below works in Baltimore you can see!"
-    Work.by_period(year)
-    puts ""
-    puts "Would you like to retrieve a new record?"
-    response = gets.strip 
-    if response == "y" || response == "yes" || response == "please"
-        retrieve
-    else 
-        loop_from_top
- end  
-end 
+    def most_valuable 
+        Work.most_valuable_work
+        puts ""
+        retrieve_loop
+    end 
 
-def randomly_select
-    Work.randomly_select
-    puts ""
-    puts "Would you like to retrieve a new record?"
-    response = gets.strip 
-    if response == "y" || response == "yes" || response == "please"
-        retrieve
-    else 
-        loop_from_top
- end  
-end 
+    def work_by_period 
+        puts "What period are you interested in learning about?"
+        puts "Please provide a year to start our search!"
+        year = gets.strip
+        puts "Check out the below works in Baltimore you can see!"
+        Work.by_period(year)
+        puts ""
+        retrieve_loop
+    end 
+
+    def randomly_select
+        Work.randomly_select
+        puts ""
+        retrieve_loop
+    end 
 
 # #options - all the artists, all the museums, all the exhibits, all the works 
 # #options - museums 
