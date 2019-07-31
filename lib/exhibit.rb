@@ -36,5 +36,6 @@ class Exhibit < ActiveRecord::Base
 #     #     "#{message}"
 #     # end 
 #     var1
+
  end 
 
