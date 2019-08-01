@@ -3,16 +3,6 @@
 
 PROMPT = TTY::Prompt.new
 
-
-#  def loop_from_top(prompt)
-#     options = [
-#         {"Create Record" => -> do create end},
-#         {"Update Record" => -> do update end},
-#         {"Destroy Record" => -> do destroy end},
-#         {"Retrieve Record" => -> do retrieve end}
-#     ]
-#     prompt.select("What would you like to do?", options)
-# end 
 def do_what
     menu_top = PROMPT.select("What would you like to do?") do |menu|
         menu.choice "Create Record"
@@ -29,7 +19,7 @@ def to_do(option)
     elsif option ==  "Update Record"
         update
     elsif option == "Destroy Record"
-        destroy
+        delete
     elsif option == "Retrieve Record"
         retrieve
     else option == "Exit"
@@ -81,16 +71,18 @@ def next_do(new_variable)
         update_dod
     elsif new_variable == "The value of a work"
         update_value
-    elsif new_variable == "Destroy Forgery" || new_variable == "Sell work"
+    elsif new_variable == "Destroy Forgery" 
+        forgery_destroy
+    elsif new_variable == "Sell work"
         forgery_destroy
     elsif new_variable == "The names of the artists represented in Baltimore's collection"
         all_artists
     elsif new_variable ==  "The most valuable work in Baltimore's collection"
         most_valuable
     elsif new_variable ==  "Check at which museums an artist has been featured"
-        exhibit_by_artist
+        exhibit_by_artist_museum 
     elsif new_variable ==  "All works created within a specified period"
-        most_valuable
+        work_by_period
     elsif new_variable ==  "Check if an artist has been featured in an exhibit in the database"
             exhibit_by_artist
     else new_variable == "Select a random work to feature" 
@@ -103,23 +95,24 @@ def create_record
     Artist.puts_names 
     artist = PROMPT.ask("What artist would you like to feature?")
         if Artist.names.include?(artist) 
-        museum = PROMPT.ask("At what museum should the exhibit take place?")
-        Museum.all_museums
-        start_date_new = PROMPT.ask("When would you like the exhibit to being? YYYY-DD-MM")
-        end_date_new = PROMPT.ask("When would you like the exhibit to end? YYYY-DD-MM")
-        Exhibit.create_new(artist, museum, start_date_new, end_date_new)
-        PROMPT.say("New exhibit planned:")
-        Exhibit.puts_newest
-        create_loop
-    else    
-        PROMPT.say("This artist does not yet appear in our collection!")
-        dob = PROMPT.ask("When was the artist born?") 
-        dod = PROMPT.ask("When did this artist pass way?") 
-        Artist.create_new(artist, dob, dod)
-        PROMPT.say("New artist record:")
-        Artist.puts_newest
-        PROMPT.say("Now lets create an exhibit!")
-    create_record     
+            PROMPT.say("Baltimore is #blessed with the following museums:")
+            Museum.all_museums 
+            museum = PROMPT.ask("At what museum should the exhibit take place?")
+            start_date_new = PROMPT.ask("When would you like the exhibit to being? YYYY-DD-MM")
+            end_date_new = PROMPT.ask("When would you like the exhibit to end? YYYY-DD-MM")
+            Exhibit.create_new(artist, museum, start_date_new, end_date_new)
+            PROMPT.say("New exhibit planned:")
+            Exhibit.puts_newest
+                create_loop
+        else    
+            PROMPT.say("This artist does not yet appear in our collection!")
+            dob = PROMPT.ask("When was the artist born?") 
+            dod = PROMPT.ask("When did this artist pass way?") 
+            Artist.create_new(artist, dob, dod)
+            PROMPT.say("New artist record:")
+            Artist.puts_newest
+            PROMPT.say("Now lets create an exhibit!")
+                create_record     
     end 
 end 
 
@@ -178,7 +171,7 @@ def update_dod
     Artist.puts_names 
     new_artist = PROMPT.ask("Which artist would you like to update?")
     new_dod = PROMPT.ask("What is the artist's year of death?")
-    passed = Artist.all.find_by_name(name_artist)
+    passed = Artist.all.find_by_name(new_artist)
     passed.dod = new_dod
     passed.save 
     PROMPT.say("This record has been updated")
@@ -253,4 +246,13 @@ def artist_exhibit_museums(artist)
         puts exhibit.museum.name
             retrieve_loop
     end  
+end 
+
+def most_valuable
+    work = Work.most_valuable
+    puts work.title 
+    puts work.value 
+    puts work.year 
+    puts work.artist.name
+    retrieve_loop
 end 

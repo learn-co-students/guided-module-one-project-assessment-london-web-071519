@@ -18,8 +18,7 @@ class Work < ActiveRecord::Base
     end 
     
     def Work.most_valuable #find most valuable work in city collection 
-        var1 = Work.all.inject {|acc, work| acc.value > work.value ? acc : work}
-        var1
+        Work.all.inject {|acc, work| acc.value > work.value ? acc : work}
     end 
 
     def Work.randomly_select #find work to promote from collection on website - to change daily 

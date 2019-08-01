@@ -1,14 +1,15 @@
 require_relative '../config/environment'
 
-#binding.pry
+# binding.pry
 
 puts "Welcome to the Baltimore City Art Portal!"	
-quit = false
-while !quit
+exit = false
+while !exit
     response = do_what
     n_response = to_do(response)
     next_do(n_response)
 end
- 
- # response = gets.strip 
-    # greeting(response)
+
+#loop_from_top
+#response = gets.strip 
+#greeting(response)
