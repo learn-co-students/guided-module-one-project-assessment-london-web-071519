@@ -94,7 +94,7 @@ def create_loop
     response =PROMPT.ask("Would you like to create a new record?")
         if response == "y" || response == "yes" || response == "please"
             create
-        else to_do
+        else do_what
     end  
 end
 
