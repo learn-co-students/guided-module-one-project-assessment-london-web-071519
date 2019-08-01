@@ -33,6 +33,7 @@ Create records for the City's database, specifically:
 
 * Create exhibits 
 * Add works to the City's collection
+* Add artists if none exist
 
 Update records within the database, specifically: 
 
@@ -48,7 +49,6 @@ Retrieve records from the City's database, specifically:
 * The names of the artists represented in the City's collection 
 * The most valuable work currently in the City's collection 
 * Find an exhibit by artist and museum
-* The titles of all the works that have appeared in a specific museum"
 * All the works in the City's collection witin a 20-year window of an input year 
 * If an artist has been featured in an exhibit in the database 
 * Randomly selected works to feature 

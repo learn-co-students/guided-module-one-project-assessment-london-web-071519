@@ -1,10 +1,14 @@
 require_relative '../config/environment'
-require_relative '../lib/practiceCLI.rb'
 
-
-#inding.pry
+#binding.pry
 
 puts "Welcome to the Baltimore City Art Portal!"	
-loop_from_top
-response = gets.strip 
-greeting(response)
+quit = false
+while !quit
+    response = do_what
+    n_response = to_do(response)
+    next_do(n_response)
+end
+ 
+ # response = gets.strip 
+    # greeting(response)

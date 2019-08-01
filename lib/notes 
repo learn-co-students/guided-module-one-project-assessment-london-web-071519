@@ -88,3 +88,20 @@
 #             retrieve_loop
 #     end r
 #  end 
+
+
+
+# def works_exist 
+#     if Work.by_period(year).length == 0
+#          puts "No works exist in Baltimore's collection. Would you like to donate one?" 
+#          response = gets.strip 
+#          if response == "y" || response == "yes" || response == "please"
+#              create_new_work
+#          else puts period 
+#          end 
+#      end 
+#  end 
+    # if Work.by_period(year) == nil 
+    #     puts "No works exist in Baltimore's collection. Would you like to donate one?" 
+    #     [2] pry(main)* end 
+

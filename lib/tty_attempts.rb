@@ -1,29 +1,206 @@
 # require "tty-prompt"
 # require "pry"
 
-#prompt = TTY::Prompt.new
+PROMPT = TTY::Prompt.new
 
 
 #  def loop_from_top(prompt)
 #     options = [
-#         {"Create Record" => -> do 1+1 end},
+#         {"Create Record" => -> do create end},
 #         {"Update Record" => -> do update end},
 #         {"Destroy Record" => -> do destroy end},
 #         {"Retrieve Record" => -> do retrieve end}
 #     ]
 #     prompt.select("What would you like to do?", options)
 # end 
-     
-# # name = "mary"
-# # name = prompt.ask("What is the artist name?", value: name) do |q|
-# #     q.required true
-# #     q.validate /\A\w+\Z/
-# #     q.modify   :capitalize
-# # end
-# stuff = loop_from_top(prompt)
+def do_what
+    menu_top = PROMPT.select("What would you like to do?") do |menu|
+        menu.choice "Create Record"
+        menu.choice "Update Record"
+        menu.choice "Destroy Record"
+        menu.choice "Retrieve Record"
+        menu.choice "Exit"
+    end
+end
 
-#  Artist.create(name: name)  
-# # binding.pry
-# # 0
+def to_do(option)
+    if option == "Create Record"
+        create
+    elsif option ==  "Update Record"
+        update
+    elsif option == "Destroy Record"
+        destroy
+    elsif option == "Retrieve Record"
+        retrieve
+    else option == "Exit"
+        exit 
+    end 
+end
+
+def create
+    new_response = PROMPT.select("What records would you like to create?") do |menu|
+        menu.choice "Create a new exhibit"
+        menu.choice "Purchase a new work"
+    end
+end 
+
+def update
+    PROMPT.select("What records would you like to update?") do |menu|
+        menu.choice "The date of death for an artist"
+        menu.choice "The value of a work"
+    end
+end 
+
+# def update_do(option)
 
 
+def delete 
+    PROMPT.select("What records would you like to remove?") do |menu|
+        menu.choice "Destroy Forgery"
+        menu.choice "Sell work"
+    end 
+end 
+
+def retrieve
+    PROMPT.select("What records would you like to retrieve?") do |menu|
+        menu.choice "The names of the artists represented in Baltimore's collection"
+        menu.choice "The most valuable work in Baltimore's collection"
+        menu.choice "Check at which museums an artist has been featured"
+        menu.choice "All works created within a specified period"
+        menu.choice "Check if an artist has been featured in an exhibit in the database"
+        menu.choice "Select a random work to feature" 
+    end 
+end
+
+def next_do(new_variable)
+    if new_variable == "Create a new exhibit"
+        create_record
+    elsif new_variable == "Purchase a new work"
+        create_new_work
+    elsif new_variable == "The date of death for an artist"
+        update_dod
+    elsif new_variable == "The value of a work"
+        update_value
+    elsif new_variable == "Destroy Forgery" || new_variable == "Sell work"
+        forgery_destroy
+    elsif new_variable == "The names of the artists represented in Baltimore's collection"
+        all_artists
+    elsif new_variable ==  "The most valuable work in Baltimore's collection"
+        most_valuable
+    elsif new_variable ==  "Check at which museums an artist has been featured"
+        exhibit_by_artist
+    elsif new_variable ==  "All works created within a specified period"
+        most_valuable
+    elsif new_variable ==  "Check if an artist has been featured in an exhibit in the database"
+            exhibit_by_artist
+    else new_variable == "Select a random work to feature" 
+        randomly_select_work
+    end 
+end 
+
+def create_record
+    artist = PROMPT.ask("What artist would you like to feature? Baltimore owns works by the following artists:")
+    Artist.puts_names 
+        if Artist.names.include?(artist) 
+        museum = PROMPT.ask("At what museum should the exhibit take place?")
+        Museum.all_museums
+        start_date_new = PROMPT.ask("When would you like the exhibit to being? YYYY-DD-MM")
+        end_date_new = PROMPT.ask("When would you like the exhibit to end? YYYY-DD-MM")
+        Exhibit.create_new(artist, museum, start_date_new, end_date_new)
+        PROMPT.say("New exhibit planned:")
+        Exhibit.puts_newest
+        create_loop
+    else    
+        PROMPT.say("This artist does not yet appear in our collection!")
+        dob = PROMPT.ask("When was the artist born?") 
+        dod = PROMPT.ask("When did this artist pass way?") 
+        Artist.create_new(artist, dob, dod)
+        PROMPT.say("New artist record:")
+        Artist.puts_newest
+        PROMPT.say("Now lets create an exhibit!")
+    create_record     
+    end 
+end 
+
+def create_new_work
+    title_new = PROMPT.ask("What is the title of the work?")
+    value_new = PROMPT.ask("What is the value of the work?")
+    year_new = PROMPT.ask("In what year was the work created?")
+    artist = PROMPT.ask("What is the name of the work's artist?")
+        if Artist.names.include?(artist) 
+            Work.create_new_work(title_new, value_new, year_new, artist)
+            PROMPT.say("New work:")
+            Work.puts_last 
+                create_loop
+        else PROMPT.say("This artist does not yet appear in our collection!")
+            dob = PROMPT.ask("When was the artist born?")
+            dod = PROMPT.ask("When did the artist pass away? If still alive, please enter nil.")
+            Artist.create_new(artist, dob, dod)
+            PROMPT.say("New artist record:")
+            Artist.puts_newest
+            PROMPT.say("Now lets add the work to the database!")
+                create_new_work
+    end  
+end
+
+def update_value
+    work = PROMPT.ask("Please provide the title of the work you would like to re-value?")
+    Work.all_titles
+        if Work.titles.include?(work)
+            new_value = PROMPT.ask("What is the new value?")
+            work_to_update = Work.all.find_by_title(work)
+            work_to_update.value = new_value
+            work_to_update.save
+            PROMPT.say("This record has been updated")
+                update_loop
+        else response = PROMPT.say("It looks like that work isn't in our collection? Would you like to add it?")
+        if response == "y" || response == "yes" || response == "please"
+            create_new_work
+        else 
+            update_loop
+        end  
+    end 
+end 
+
+def update_dod 
+    new_artist = PROMPT.ask("Which artist would you like to update?")
+    Artist.puts_names
+    new_dod = PROMPT.ask("What is the artist's year of death?")
+    passed = Artist.all.find_by_name(name_artist)
+    passed.dod = new_dod
+    passed.save 
+    PROMPT.say("This record has been updated")
+        update_loop
+end 
+
+def forgery_destroy
+    fake = PROMPT.ask("What is the title of the work you would like to sell or destroy?")
+    fake_work = Work.all.find_by_title(fake)
+    fake_work.destroy
+    PROMPT.say("This work has been removed from the database.")
+    response = PROMPT.ask("Would you like to remove a new record?")
+        if response == "y" || response == "yes" || response == "please"
+            delete
+        else to_do
+    end  
+end 
+
+def retrieve_loop 
+    response = PROMPT.ask("Would you like to retrieve a new record?")
+    if response == "y" || response == "yes" || response == "please"
+        retrieve
+    else 
+        to_do
+    end  
+end
+
+def exhibit_by_artist
+    artist_name = PROMPT.ask("What artist would you like to check if they have been featured in an exhibit in the database?")
+    Artist.puts_names 
+        if Artist.all.find_by_name(artist_name)
+            puts "This artist has been recently featured in an exhibit."
+                retrieve_loop
+        else puts "This artist has not been recently featured in an exhibit."
+                create_loop
+    end 
+end

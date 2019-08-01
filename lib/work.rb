@@ -13,8 +13,9 @@ class Work < ActiveRecord::Base
     end 
     end 
 
-    def Work.puts_last 
-        
+    def Work.last 
+        Work.all.last
+    end 
     
     def Work.most_valuable #find most valuable work in city collection 
         var1 = Work.all.inject {|acc, work| acc.value > work.value ? acc : work}
@@ -36,21 +37,6 @@ class Work < ActiveRecord::Base
        puts period 
     end 
 end 
-
-# def works_exist 
-#     if Work.by_period(year).length == 0
-#          puts "No works exist in Baltimore's collection. Would you like to donate one?" 
-#          response = gets.strip 
-#          if response == "y" || response == "yes" || response == "please"
-#              create_new_work
-#          else puts period 
-#          end 
-#      end 
-#  end 
-    # if Work.by_period(year) == nil 
-    #     puts "No works exist in Baltimore's collection. Would you like to donate one?" 
-    #     [2] pry(main)* end 
-
 
 
 
