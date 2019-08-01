@@ -99,8 +99,9 @@ def next_do(new_variable)
 end 
 
 def create_record
-    artist = PROMPT.ask("What artist would you like to feature? Baltimore owns works by the following artists:")
+    PROMPT.say("Baltimore owns works by the following artists:")
     Artist.puts_names 
+    artist = PROMPT.ask("What artist would you like to feature?")
         if Artist.names.include?(artist) 
         museum = PROMPT.ask("At what museum should the exhibit take place?")
         Museum.all_museums
@@ -143,9 +144,19 @@ def create_new_work
     end  
 end
 
+def update_loop
+    response = PROMPT.ask("Would you like to update a new record?")
+        if response == "y" || response == "yes" || response == "please"
+            update
+        else 
+            do_what
+    end  
+end
+
 def update_value
-    work = PROMPT.ask("Please provide the title of the work you would like to re-value?")
+    PROMPT.say("The below works appear in Baltimore's collection:")
     Work.all_titles
+    work = PROMPT.ask("Please provide the title of the work you would like to re-value?")
         if Work.titles.include?(work)
             new_value = PROMPT.ask("What is the new value?")
             work_to_update = Work.all.find_by_title(work)
@@ -163,8 +174,9 @@ def update_value
 end 
 
 def update_dod 
+    PROMPT.say("The below artists appear in Baltimore's collection:")
+    Artist.puts_names 
     new_artist = PROMPT.ask("Which artist would you like to update?")
-    Artist.puts_names
     new_dod = PROMPT.ask("What is the artist's year of death?")
     passed = Artist.all.find_by_name(name_artist)
     passed.dod = new_dod
@@ -174,6 +186,8 @@ def update_dod
 end 
 
 def forgery_destroy
+    PROMPT.say("The below works appear in Baltimore's collection:")
+    Work.all_titles
     fake = PROMPT.ask("What is the title of the work you would like to sell or destroy?")
     fake_work = Work.all.find_by_title(fake)
     fake_work.destroy
@@ -181,7 +195,7 @@ def forgery_destroy
     response = PROMPT.ask("Would you like to remove a new record?")
         if response == "y" || response == "yes" || response == "please"
             delete
-        else to_do
+        else do_what
     end  
 end 
 
@@ -190,17 +204,53 @@ def retrieve_loop
     if response == "y" || response == "yes" || response == "please"
         retrieve
     else 
-        to_do
+        do_what
     end  
 end
 
 def exhibit_by_artist
-    artist_name = PROMPT.ask("What artist would you like to check if they have been featured in an exhibit in the database?")
+    PROMPT.say("The below artists appear in Baltimore's collection:")
     Artist.puts_names 
+    artist_name = PROMPT.ask("What artist would you like to check if they have been featured in an exhibit in the database?")
         if Artist.all.find_by_name(artist_name)
-            puts "This artist has been recently featured in an exhibit."
+            PROMPT.say("This artist has been recently featured in an exhibit.")
                 retrieve_loop
-        else puts "This artist has not been recently featured in an exhibit."
+        else PROMPT.say("This artist has not been recently featured in an exhibit.")
                 create_loop
     end 
 end
+
+def exhibit_by_artist_museum 
+    PROMPT.say("The below artists appear in Baltimore's collection:")
+    Artist.puts_names 
+    artist = PROMPT.ask("Which artist was featured in the exhibit?")
+    artist_exhibit_museums(artist)
+end 
+
+def randomly_select
+    PROMPT.say("Why not feature this treasure!")
+        randomly_select_work
+        retrieve_loop
+end 
+
+def all_artists
+    Artist.puts_names
+    retrieve_loop
+end 
+
+def work_by_period
+    PROMPT.say("What period are you interested in learning about?")
+    year = PROMPT.ask("Please provide a year to start our search!")
+    PROMPT.say("Check out the below works in Baltimore you can see!")
+    Work.by_period(year)
+        retrieve_loop
+end 
+
+def artist_exhibit_museums(artist)
+    exhibits = Artist.all.find_by_name(artist).exhibits
+        exhibits.each do |exhibit| 
+        puts "The artist was been featured in an exhibit at the following museum:"
+        puts exhibit.museum.name
+            retrieve_loop
+    end  
+end 

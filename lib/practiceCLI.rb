@@ -102,34 +102,34 @@ end
 #     end 
 # end 
    
-def create_new_work
-    puts "What is the title of the work?"
-    title_new = gets.strip
-    puts "What is the value of the work?"
-    value_new = gets.strip 
-    puts "In what year was the work created?"
-    year_new = gets.strip 
-    puts "What is the name of the work's artist?"
-    artist = gets.strip 
-    puts ""
-        if Artist.names.include?(artist) 
-            Work.create_new_work(title_new, value_new, year_new, artist)
-            puts "New work:"
-            Work.puts_last 
-                create_loop
-        else puts "This artist does not yet appear in our collection!"
-            puts "When was the artist born?"
-            dob = gets.strip
-            puts "When did the artist pass away? If still alive, please enter nil."
-            dod = gets.strip
-            Artist.create_new(artist, dob, dod)
-            puts "New artist record:"
-            Artist.puts_newest
-            puts ""
-            puts "Now lets add the work to the database!"
-                create_new_work
-    end  
-end
+# def create_new_work
+#     puts "What is the title of the work?"
+#     title_new = gets.strip
+#     puts "What is the value of the work?"
+#     value_new = gets.strip 
+#     puts "In what year was the work created?"
+#     year_new = gets.strip 
+#     puts "What is the name of the work's artist?"
+#     artist = gets.strip 
+#     puts ""
+#         if Artist.names.include?(artist) 
+#             Work.create_new_work(title_new, value_new, year_new, artist)
+#             puts "New work:"
+#             Work.puts_last 
+#                 create_loop
+#         else puts "This artist does not yet appear in our collection!"
+#             puts "When was the artist born?"
+#             dob = gets.strip
+#             puts "When did the artist pass away? If still alive, please enter nil."
+#             dod = gets.strip
+#             Artist.create_new(artist, dob, dod)
+#             puts "New artist record:"
+#             Artist.puts_newest
+#             puts ""
+#             puts "Now lets add the work to the database!"
+#                 create_new_work
+#     end  
+# end
 
 def update
     puts ""
@@ -152,15 +152,15 @@ def update_and_send(update_new)
     end 
 end 
 
-def update_loop
-    puts "Would you like to update a new record?"
-    response = gets.strip 
-        if response == "y" || response == "yes" || response == "please"
-            update
-        else 
-            loop_from_top
-    end  
-end
+# def update_loop
+#     puts "Would you like to update a new record?"
+#     response = gets.strip 
+#         if response == "y" || response == "yes" || response == "please"
+#             update
+#         else 
+#             loop_from_top
+#     end  
+# end
         
 # def update_value
 #     puts "Please provide the title of the work you would like to re-value?"
@@ -249,15 +249,15 @@ def retrieve
     retrieve_options(retrieve_this)
 end 
 
-def retrieve_loop 
-    puts "Would you like to retrieve a new record?"
-    response = gets.strip 
-    if response == "y" || response == "yes" || response == "please"
-        retrieve
-    else 
-        loop_from_top
-    end  
-end
+# def retrieve_loop 
+#     puts "Would you like to retrieve a new record?"
+#     response = gets.strip 
+#     if response == "y" || response == "yes" || response == "please"
+#         retrieve
+#     else 
+#         loop_from_top
+#     end  
+# end
 
 def retrieve_options(retrieve_this)
     if retrieve_this == "The names of the artists represented in Baltimore's collection" || retrieve_this == "1"
@@ -275,60 +275,60 @@ def retrieve_options(retrieve_this)
     end
 end 
 
-def exhibit_by_artist
-    puts "What artist would you like to check if they have been featured in an exhibit in the database?"
-    Artist.puts_names 
-    puts ""
-    artist_name = gets.strip 
-        if Artist.all.find_by_name(artist_name)
-            puts "This artist has been recently featured in an exhibit."
-                retrieve_loop
-        else puts "This artist has not been recently featured in an exhibit."
-                create_loop
-    end 
-end
+# def exhibit_by_artist
+#     puts "What artist would you like to check if they have been featured in an exhibit in the database?"
+#     Artist.puts_names 
+#     puts ""
+#     artist_name = gets.strip 
+#         if Artist.all.find_by_name(artist_name)
+#             puts "This artist has been recently featured in an exhibit."
+#                 retrieve_loop
+#         else puts "This artist has not been recently featured in an exhibit."
+#                 create_loop
+#     end 
+# end
 
-def exhibit_by_artist_museum 
-    puts "Which artist was featured in the exhibit?"
-    Artist.puts_names 
-    puts ""
-    artist = gets.strip
-    artist_exhibit_museums(artist)
-end 
-
-
-def artist_exhibit_museums(artist)
-    exhibits = Artist.all.find_by_name(artist).exhibits
-        exhibits.each do |exhibit| 
-        puts "The artist was been featured in an exhibit at the following museum:"
-        puts exhibit.museum.name
-            retrieve_loop
-    end  
-end 
-
-def all_artists
-    Artist.puts_names
-    puts ""
-        retrieve_loop
-end 
+# def exhibit_by_artist_museum 
+#     puts "Which artist was featured in the exhibit?"
+#     Artist.puts_names 
+#     puts ""
+#     artist = gets.strip
+#     artist_exhibit_museums(artist)
+# end 
 
 
-def work_by_period
-    puts "What period are you interested in learning about?"
-    puts "Please provide a year to start our search!"
-    year = gets.strip
-    puts "Check out the below works in Baltimore you can see!"
-    Work.by_period(year)
-    puts ""
-        retrieve_loop
-end 
+# def artist_exhibit_museums(artist)
+#     exhibits = Artist.all.find_by_name(artist).exhibits
+#         exhibits.each do |exhibit| 
+#         puts "The artist was been featured in an exhibit at the following museum:"
+#         puts exhibit.museum.name
+#             retrieve_loop
+#     end  
+# end 
 
-def randomly_select
-    puts "Why not feature this treasure!"
-        randomly_select_work
-    puts ""
-        retrieve_loop
-end 
+# def all_artists
+#     Artist.puts_names
+#     puts ""
+#     retrieve_loop
+# end 
+
+
+# def work_by_period
+#     puts "What period are you interested in learning about?"
+#     puts "Please provide a year to start our search!"
+#     year = gets.strip
+#     puts "Check out the below works in Baltimore you can see!"
+#     Work.by_period(year)
+#     puts ""
+#         retrieve_loop
+# end 
+
+# def randomly_select
+#     puts "Why not feature this treasure!"
+#         randomly_select_work
+#     puts ""
+#         retrieve_loop
+# end 
 
 def Artist.puts_names 
     puts Artist.names
