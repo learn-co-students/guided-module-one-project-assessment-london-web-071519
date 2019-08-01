@@ -76,4 +76,15 @@
 
 
       #   puts "4 The titles of all the works that have appeared in a specific museum"
-      most_valuable
+      
+#     def works_by_museum
+#         puts "What museum are you interested in learning about?"
+#         Museum.all
+#         museum = gets.strip
+#         id = Museum.all.find_by(name: museum).id
+#         exhibits = Exhibit.all.find_by(museum_id: id)
+#         exhibits.artist.works.each do |work|
+#             puts work.title
+#             retrieve_loop
+#     end r
+#  end 

@@ -12,6 +12,9 @@ class Work < ActiveRecord::Base
         works.title
     end 
     end 
+
+    def Work.puts_last 
+        
     
     def Work.most_valuable #find most valuable work in city collection 
         var1 = Work.all.inject {|acc, work| acc.value > work.value ? acc : work}

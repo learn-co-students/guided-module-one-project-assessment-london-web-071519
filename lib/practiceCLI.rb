@@ -115,7 +115,7 @@ end
          if Artist.names.include?(artist) 
             Work.create_new_work(title_new, value_new, year_new, artist)
             puts "New work:"
-            Work.create_new_work 
+            Work.puts_last 
             create_loop
          else 
         puts "This artist does not yet appear in our collection!"
@@ -277,18 +277,6 @@ end
         end
     end 
 
-#     def works_by_museum
-#         puts "What museum are you interested in learning about?"
-#         Museum.all
-#         museum = gets.strip
-#         id = Museum.all.find_by(name: museum).id
-#         exhibits = Exhibit.all.find_by(museum_id: id)
-#         exhibits.artist.works.each do |work|
-#             puts work.title
-#             retrieve_loop
-#     end r
-#  end 
-
  def exhibit_by_artist
         puts "What artist would you like to check if they have been featured in an exhibit in the database?"
         Artist.puts_names 
@@ -333,7 +321,6 @@ end
         year = gets.strip
         puts "Check out the below works in Baltimore you can see!"
         Work.by_period(year)
-        # works_exist
         puts ""
         retrieve_loop
     end 
@@ -389,14 +376,6 @@ end
         Work.all.each {|work| puts work.title}
     end 
 
-    def Work.new_record 
-        new_work = Work.all.last 
-        puts new_work.title 
-        puts new_work.value 
-        puts new_work.year
-        puts new_work.artist.name
-    end 
-
     def randomly_select_work
         work = Work.randomly_select
         puts 
@@ -404,4 +383,12 @@ end
         puts work.value
         puts work.year
         puts work.artist.name
+    end 
+
+    def Work.puts_last
+        work = Work.last
+        puts work.title
+        puts work.value
+        puts work.year 
+        puts work.artist.name 
     end 
