@@ -59,9 +59,9 @@ def create_loop
 end
 
 def create_what(create_new)
-    if create_new == "Create a new exhibit" || create_new == "2"
+    if create_new == "Create a new exhibit" || create_new == "1"
         create_record       
-    elsif create_new == "Purchase a new work" || create_new == "1"
+    elsif create_new == "Purchase a new work" || create_new == "2"
         create_new_work
     end 
 end 
@@ -78,6 +78,8 @@ end
         puts "When would you like the exhibit to end? YYYY-DD-MM"
         end_date_new = gets.strip
         Exhibit.create(artist_id: Artist.all.find_by_name(artist).id, museum_id: Museum.all.find_by_name(museum).id, start_date: start_date_new, end_date: end_date_new)
+        puts "New exhibit planned:"
+        Exhibit.newest
         create_loop
     end 
    
@@ -86,11 +88,16 @@ end
         title_new = gets.strip
         puts "What is the value of the work?"
         value_new = gets.strip 
-        puts "When was the work created?"
+        puts "In what year was the work created?"
         year_new = gets.strip 
-        puts "Who is the artist?"
+        puts "What is the name of the work's artist?"
         artist = gets.strip 
-         if !(Artist.names.include?(artist))
+        puts ""
+         if Artist.names.include?(artist) 
+            Work.create(title: title_new, value: value_new, year: year_new, artist_id: Artist.all.find_by_name(artist).id)
+            puts "New work:"
+            Work.new_record 
+         else 
         puts "This artist does not yet appear in our collection!"
         puts "When was the artist born?"
         dob = gets.strip
@@ -98,10 +105,17 @@ end
         dod = gets.strip
         new_artist = Artist.create(name: artist, dob: dob, dod: dod)
         Work.create(title: title_new, value: value_new, year: year_new, artist_id: new_artist.id)
+        puts "New artist record:"
+        Artist.newest 
+        puts ""
+        puts "New work:"
+        Work.new_record
         create_loop
-        else 
-           Work.create(title: title_new, value: value_new, year: year_new, artist_id: Artist.all.find_by_name(artist).id)
-           create_loop
+        # else 
+        #    Work.create(title: title_new, value: value_new, year: year_new, artist_id: Artist.all.find_by_name(artist).id)
+        #    puts "New work:"
+        #    Work.new_record 
+        #    create_loop
         end  
     end
 
@@ -118,9 +132,9 @@ def update
 end 
 
 def update_and_send(update_new)
-    if update_new == "The value of a work" || update_new == "1"
+    if update_new == "The value of a work" || update_new == "2"
         update_value
-    elsif update_new == "The date of death for an artist" || update_new == "2"
+    elsif update_new == "The date of death for an artist" || update_new == "1"
         update_dod
         elsif update_new == "The end date for an exhibit" || update_new == "3"
             update_end_date
@@ -139,7 +153,9 @@ def update_and_send(update_new)
     end
         
      def update_value
-            puts "Please provide the title of the work"
+            puts "Please provide the title of the work you would like to re-value?"
+                Work.all_titles 
+                puts ""
              work = gets.strip 
         if Work.titles.include?(work)
             puts "What is the new value?"
@@ -160,7 +176,9 @@ def update_and_send(update_new)
 end 
 
     def update_dod 
-        puts "What is the name of the artist?"
+        puts "Which artist would you like to update?"
+        puts ""
+        Artist.names
         name_artist = gets.strip 
         puts "What is the artist's year of death?"
         new_dod = gets.strip 
@@ -172,9 +190,11 @@ end
 
     def update_end_date 
         puts "What exhibit would you like to update? Please provide the:"
-        puts "Artist Name"
+        puts "Artist Name" 
+        Artist.names
         artist = gets.strip 
         puts "Current End Date"
+        Exhibit.all_end_date
         end_date = gets.strip
         puts "New End Date"
         new_end_date = gets.strip
@@ -196,18 +216,18 @@ end
 
     def destroy
         puts ""
-        puts "Destroy Forgery"
+        puts "1 Destroy Forgery"
         puts ""
-        puts "Sell Work"
+        puts "2 Sell Work"
         puts ""
         destroy_new = gets.strip
         destroy_record(destroy_new)
     end 
 
     def destroy_record(destroy_new)
-        if destroy_new == "Destroy Forgery"
+        if destroy_new == "Destroy Forgery" || destroy_new == "1"
             forgery_destroy 
-        else destroy_new == "Sell Work"
+        else destroy_new == "Sell Work" || destroy_new == "2"
             forgery_destroy
         end 
     end
@@ -231,12 +251,13 @@ end
      puts ""
      puts "What records would you like to retrieve?"
      puts ""
-     puts "1 The Artists represented in Baltimore"
-     puts "2 The most valuable work in Baltimore' collection"
+     puts "1 The names of the artists represented in Baltimore's collection"
+     puts "2 The most valuable work in Baltimore's collection"
      puts "3 Find an exhibit by artist and museum"
      puts "4 The titles of all the works that have appeared in a specific museum"
      puts "5 All works created within a specified period"
-     puts "6 Select a random work to feature" 
+     puts "6 Check if an artist has been featured in an exhibit in the database"
+     puts "7 Select a random work to feature" 
      puts ""
      retrieve_this = gets.strip
      retrieve_options(retrieve_this)
@@ -259,11 +280,13 @@ end
             most_valuable
         elsif retrieve_this == "All works created within a specified period" || retrieve_this == "3"
             work_by_period 
-            elsif "All works that have appeared in a specific museum" || retrieve_this == "4"
-                works_by_museum 
+        elsif "All works that have appeared in a specific museum" || retrieve_this == "4"
+            works_by_museum 
         elsif retrieve_this == "Find an exhibit by artist and museum" || retrieve_this == "5"
             exhibit_by_artist_museum
-         else retrieve_this == "Select random" || retrieve_this == "6"
+        elsif retrieve_this == "Check if an artist has been featured in an exhibit in the database" || retrieve_this == "6"
+            exhibit_by_artist
+         else retrieve_this == "Select a random work to feature" || retrieve_this == "7"
             randomly_select
         end
     end 
@@ -280,7 +303,7 @@ end
  end 
 
  def exhibit_by_artist
-        puts "What artist would you like to check if they have recently been featured in an exhibit?"
+        puts "What artist would you like to check if they have been featured in an exhibit in the database?"
         artist_name = gets.strip 
         if Artist.all.find_by_name(artist_name)
             puts "This artist has been recently featured in an exhibit"

@@ -1,12 +1,25 @@
+
 class Artist <ActiveRecord::Base 
     has_many :works
     has_many :exhibits 
     has_many :museums, through: :exhibits 
 
     def Artist.names
+        artists = []
         Artist.all.each do |artist|
-        puts artist.name
+            artists << artist.name 
         end 
+        all_artists = artists.uniq
+        all_artists.each do |artist_each|
+            puts artist_each 
+        end 
+    end 
+
+    def Artist.newest
+        new_artist = Artist.all.last 
+        puts new_artist.name
+        puts new_artist.dob
+        puts new_artist.dod 
     end 
 
     # def self.most_works #artist with the most paintings in Bmore

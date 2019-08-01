@@ -1,6 +1,6 @@
 class Work < ActiveRecord::Base 
     belongs_to :artist
-   # has_many :exhibits, through: artist
+    has_many :exhibits, through: artist
    # Work.all[0].artist.exhibits
 
     def Work.titles
@@ -37,6 +37,23 @@ class Work < ActiveRecord::Base
         end 
         puts period 
     end 
+
+    def Work.all_titles 
+        Work.all.each do |work|
+            puts work.title
+        end 
+    end 
+
+    def Work.new_record 
+        new_work = Work.all.last 
+        id = new_work.artist_id
+        artist = Artist.all.find_by_id(id)
+        puts new_work.title 
+        puts new_work.value 
+        puts new_work.year
+        puts artist.name
+    end 
+
 end 
 
 

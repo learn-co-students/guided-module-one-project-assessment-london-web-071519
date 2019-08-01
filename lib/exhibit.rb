@@ -3,6 +3,21 @@ class Exhibit < ActiveRecord::Base
     belongs_to :artist
     has_many :works, through: :artist #Exhibit.all[0].artist.works
 
+    def Exhibit.all_end_date
+        Exhibit.all.each do |exhibit|
+            puts exhibit.end_date
+        end 
+    end 
+
+    def Exhibit.newest 
+        new_exhibit = Exhibit.all.last
+        puts new_exhibit.artist.name
+        puts new_exhibit.museum.name 
+        puts new_exhibit.start_date
+        puts new_exhibit.end_date
+    end 
+
+
     # def Exhibit.find_exhibit_by_name(artist, museum)
     #     Exhibit.all.each do |exhibit| 
     #         if exhibit.artist.name == artist && exhibit.museum.name == museum
