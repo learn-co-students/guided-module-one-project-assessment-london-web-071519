@@ -4,23 +4,65 @@ class Artist <ActiveRecord::Base
     has_many :exhibits 
     has_many :museums, through: :exhibits 
 
+    def Artist.create_new(artist, dob, dod)
+        Artist.create(name: artist, dob: dob, dod: dod)    
+    end 
+
+    def Artist.works_by_artist(artist)
+        artist_works = Artist.all.find_by_name(artist).works
+            artist_works
+    end 
+
     def Artist.names
         artists = []
         Artist.all.each do |artist|
             artists << artist.name 
         end 
-        all_artists = artists.uniq
-        all_artists.each do |artist_each|
-            puts artist_each 
-        end 
+        artists.uniq
+    end 
+
+
+    def works_by_artist(artist)
+        artist_works = Artist.all.find_by_name(artist).works
+        artist_works
     end 
 
     def Artist.newest
         new_artist = Artist.all.last 
-        puts new_artist.name
-        puts new_artist.dob
-        puts new_artist.dod 
+        new_artist
     end 
+
+    # def artist_exhibit(artist) 
+        
+    #     exhibits
+    # end 
+
+
+
+    # puts "At what museum did the exhibit take place?"
+    #     Museum.all_museums
+    #     puts ""
+    #     museum = gets.strip 
+    #         Exhibit.all.each do |exhibit| 
+    #          if exhibit.artist.name == artist && exhibit.museum.name == museum
+    #             puts "This exhibit began on #{exhibit.start_date} and will/did end on #{exhibit.end_date}." 
+    #             retrieve_loop
+    #             else 
+    #                puts "No such exhibit exists in our database." 
+    #                create_loop
+    #             end
+    #         end
+
+
+    # def puts_exhibits(artist)
+    #     exhibits = artist_exhibit(artist)
+    #     exhibits.each {|e}        
+
+    # def artist_exhibit(artist)
+    #     Exhibit.all.find_by_artist(artist) 
+    # end 
+
+end 
 
     # def self.most_works #artist with the most paintings in Bmore
     #     self.all.inject {|acc, artist| acc.works.count > artist.works.count ? acc : artist}
@@ -40,8 +82,8 @@ class Artist <ActiveRecord::Base
     # def self.no_exhibits 
     #     self.all - self.exhibits 
     # end
+ 
 
-end 
 
 
 

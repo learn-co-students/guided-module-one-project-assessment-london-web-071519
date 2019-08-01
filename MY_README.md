@@ -38,7 +38,6 @@ Update records within the database, specifically:
 
 * The value of a work in the City's collection 
 * The date of death for an artist
-* The end date for an exhibit
 
 Delete records from the City's database, specifically: 
 

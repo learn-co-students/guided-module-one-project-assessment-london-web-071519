@@ -3,19 +3,16 @@ class Exhibit < ActiveRecord::Base
     belongs_to :artist
     has_many :works, through: :artist #Exhibit.all[0].artist.works
 
-    def Exhibit.all_end_date
-        Exhibit.all.each do |exhibit|
-            puts exhibit.end_date
-        end 
+    def Exhibit.create_new(artist, museum, start_date_new, end_date_new)
+        Exhibit.create(artist_id: Artist.all.find_by_name(artist).id, museum_id: Museum.all.find_by_name(museum).id, start_date: start_date_new, end_date: end_date_new)
     end 
 
     def Exhibit.newest 
         new_exhibit = Exhibit.all.last
-        puts new_exhibit.artist.name
-        puts new_exhibit.museum.name 
-        puts new_exhibit.start_date
-        puts new_exhibit.end_date
+        new_exhibit
     end 
+
+ 
 
 
     # def Exhibit.find_exhibit_by_name(artist, museum)
@@ -46,7 +43,7 @@ class Exhibit < ActiveRecord::Base
 #             var1 = Exhibit.find_exhibit_by_end(end_date).map {|exhibit| exhibit.end_date}.pop
 #         end
 #     end 
-#     binding.pry
+
 #     # def add_update_description(message)
 #     #     "#{message}"
 #     # end 

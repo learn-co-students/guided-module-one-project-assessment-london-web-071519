@@ -8,3 +8,72 @@
 #Delete Records eg Destroy a Work, sell a work  
 #End Exhibit (?)
 #Retrieve Information about exhibits, artistis, paintings 
+
+
+
+# #options - all the artists, all the museums, all the exhibits, all the works 
+# #options - museums 
+#     #all the messages used at the museum 
+#     #all the paintings which have appeared at the musuem 
+#     #name 
+
+# #options - exhibits 
+#     #all the works in a given exhibit 
+#     #start date
+#     #end date
+#     #musuem 
+#     #artist 
+
+# #options - artists 
+#     #date of birth 
+#     #date of death 
+#     #works 
+#     #name 
+#     #artist with most works in Bmore 
+#     #which artists have appeared in exhibits 
+#     #which artists have not appeared in exhibits 
+
+# #options - works
+#     #price of work 
+#     #date of creation 
+#     #most valuable painting in collection 
+#     #title
+#     #artist 
+#     #find random work to promote on website 
+#     #all works created within a 20-year window of a specific year 
+# end 
+
+# def update_end_date ### this needs to be redone 
+    #     puts "What exhibit would you like to update? Please provide the artist name:"
+    #     puts "" 
+    #     Artist.names
+    #     artist = gets.strip 
+
+# elsif update_new == "The end date for an exhibit" || update_new == "3"
+#     update_end_date
+
+    #     puts "Current End Date"
+    #     Exhibit.all_end_date
+    #     end_date = gets.strip
+    #     puts "New End Date"
+    #     new_end_date = gets.strip
+    #      if Exhibit.find_exhibit_by_name(artist, end_date) 
+    #          exhibit_update = Exhibit.find_exhibit_by_name(artist, end_date) 
+    #          exhibit_update.end_date = new_end_date
+    #          exhibit_update.save
+    #          puts "This record has been updated"
+    #          update_loop
+    #      else
+    #         puts "I dont see the requested exhibit, would you like to create a new exhibit?"
+    #         response = gets.strip 
+    #         if response == "y" || response == "yes" || response == "please"
+    #             create_record
+    #         else 
+    #             update_loop
+    #         end 
+    #     end 
+    # end 
+
+
+      #   puts "4 The titles of all the works that have appeared in a specific museum"
+      most_valuable

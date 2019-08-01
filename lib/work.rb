@@ -1,7 +1,11 @@
 class Work < ActiveRecord::Base 
     belongs_to :artist
-    has_many :exhibits, through: artist
+  #  has_many :exhibits, through: artists
    # Work.all[0].artist.exhibits
+
+    def Work.create_new_work(title_new, value_new, year_new, artist)
+        Work.create(title: title_new, value: value_new, year: year_new, artist_id: Artist.all.find_by_name(artist).id)
+    end 
 
     def Work.titles
         Work.all.map do |works|
@@ -9,22 +13,13 @@ class Work < ActiveRecord::Base
     end 
     end 
     
-    def Work.most_valuable_work #find most valuable work in city collection 
+    def Work.most_valuable #find most valuable work in city collection 
         var1 = Work.all.inject {|acc, work| acc.value > work.value ? acc : work}
-        var2 = Artist.all.find_by(id: var1.artist_id)
-        puts var1.title 
-        puts var1.value 
-        puts var1.year 
-        puts var2.name 
+        var1
     end 
 
     def Work.randomly_select #find work to promote from collection on website - to change daily 
-        var1 = Work.all.sample 
-        var2 = Artist.all.find_by(id: var1.artist_id)
-        puts var1.title 
-        puts var1.value 
-        puts var1.year 
-        puts var2.name
+        Work.all.sample 
     end 
 
 
@@ -35,25 +30,25 @@ class Work < ActiveRecord::Base
                 period << work.title 
             end 
         end 
-        puts period 
+       puts period 
     end 
-
-    def Work.all_titles 
-        Work.all.each do |work|
-            puts work.title
-        end 
-    end 
-
-    def Work.new_record 
-        new_work = Work.all.last 
-        id = new_work.artist_id
-        artist = Artist.all.find_by_id(id)
-        puts new_work.title 
-        puts new_work.value 
-        puts new_work.year
-        puts artist.name
-    end 
-
 end 
+
+# def works_exist 
+#     if Work.by_period(year).length == 0
+#          puts "No works exist in Baltimore's collection. Would you like to donate one?" 
+#          response = gets.strip 
+#          if response == "y" || response == "yes" || response == "please"
+#              create_new_work
+#          else puts period 
+#          end 
+#      end 
+#  end 
+    # if Work.by_period(year) == nil 
+    #     puts "No works exist in Baltimore's collection. Would you like to donate one?" 
+    #     [2] pry(main)* end 
+
+
+
 
 
