@@ -1,6 +1,5 @@
 class Work < ActiveRecord::Base 
     belongs_to :artist
-  #  has_many :exhibits, through: artists
    # Work.all[0].artist.exhibits
 
     def Work.create_new_work(title_new, value_new, year_new, artist)

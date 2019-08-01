@@ -4,19 +4,14 @@ class Museum < ActiveRecord::Base
     has_many :works, through: :artists # Museum.all[0].exhibits[0].artist.works
     #Museum.all[0].exhibits[0].artist.works[0].title
 
-    # def Museum.find_works(museum) 
-    #   Museum.all[0].exhibits[0].artist.works[0].title  
-        # exhibits = Exhibit.all.find_by(museum: museum)
-    #       artists = exhibits.map {|each_exhibit| each_exhibit.artist}  
-    #       artists.each do |artist|
-    #         puts artist.works
-    #      end 
+   # below blocks of code work
+    # def find_works(museum)   
+        # museum_name = find_museum(museum)
+        # museum_name.exhibits.map{|artist| puts artist.works.titles}.uniq 
     # end 
 
-
-
-    # def works #find the paintings which have appeared in this museum (unique list)
-    #     exhibits.map {|exhibit| exhibit.artist.works}.uniq  
+    # def find_museum(museum) this would be for CLI page
+            # museum = Museum.all.find_by_name(museum)
     # end 
 
 end 

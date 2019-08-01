@@ -86,9 +86,17 @@ def next_do(new_variable)
     elsif new_variable ==  "Check if an artist has been featured in an exhibit in the database"
             exhibit_by_artist
     else new_variable == "Select a random work to feature" 
-        randomly_select_work
+        randomly_select
     end 
 end 
+
+def create_loop 
+    response =PROMPT.ask("Would you like to create a new record?")
+        if response == "y" || response == "yes" || response == "please"
+            create
+        else to_do
+    end  
+end
 
 def create_record
     PROMPT.say("Baltimore owns works by the following artists:")
@@ -255,4 +263,55 @@ def most_valuable
     puts work.year 
     puts work.artist.name
     retrieve_loop
+end 
+
+def Artist.puts_names 
+    puts Artist.names
+end 
+
+def Exhibit.all_end_date
+    Exhibit.all.each {|exhibit| puts exhibit.end_date }
+end 
+
+def Exhibit.puts_newest 
+    puts Exhibit.newest.artist.name 
+    puts Exhibit.newest.museum.name 
+    puts Exhibit.newest.start_date
+    puts Exhibit.newest.end_date
+end 
+
+def Artist.puts_newest
+    puts Artist.newest.name
+    puts Artist.newest.dob
+    puts Artist.newest.dod 
+end 
+
+def Artist.put_works(artist)
+    works = Artist.works_by_artist(artist)
+    works.each {|work| puts work.title}
+end 
+
+def Museum.all_museums 
+    Museum.all.each {|museum| puts museum.name}
+end 
+
+def Work.all_titles 
+    Work.all.each {|work| puts work.title}
+end 
+
+def randomly_select_work
+    work = Work.randomly_select
+    puts ""
+    puts work.title
+    puts work.value
+    puts work.year
+    puts work.artist.name
+end 
+
+def Work.puts_last
+    work = Work.last
+    puts work.title
+    puts work.value
+    puts work.year 
+    puts work.artist.name 
 end 

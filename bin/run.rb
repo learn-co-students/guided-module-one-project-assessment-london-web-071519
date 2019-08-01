@@ -1,6 +1,6 @@
 require_relative '../config/environment'
 
-# binding.pry
+ #binding.pry
 
 puts "Welcome to the Baltimore City Art Portal!"	
 exit = false
