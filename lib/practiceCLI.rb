@@ -1,7 +1,14 @@
-old_logger = ActiveRecord::Base.logger
-ActiveRecord::Base.logger = nil
-#To turn it back on:
-#ActiveRecord::Base.logger = old_logger
+# old_logger = ActiveRecord::Base.logger
+# ActiveRecord::Base.logger = nil
+# #To turn it back on:
+# #ActiveRecord::Base.logger = old_logger
+
+# def start_cli_loop
+#     puts "Welcome to the Baltimore City Art Portal!"	
+#     loop_from_top
+#     response = gets.strip 
+#     greeting(response)
+# end 
 
 # def loop_from_top
 # puts "What would you like to do?" 

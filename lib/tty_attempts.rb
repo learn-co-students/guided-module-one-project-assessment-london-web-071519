@@ -3,6 +3,21 @@
 
 PROMPT = TTY::Prompt.new
 
+def start_tty_loop
+    puts "Welcome to the Baltimore City Art Portal!"	
+    exit = false
+    while !exit
+        response = do_what
+        n_response = to_do(response)
+        new_response = next_do(n_response)
+        this = next_do(new_response)
+        that = next_do(this)
+        here = next_do(that)
+        there = next_do(here)
+        end
+    end 
+    
+
 def do_what
     menu_top = PROMPT.select("What would you like to do?") do |menu|
         menu.choice "Create Record"
