@@ -2,6 +2,13 @@
 # ruby bin/< your file name >
 # $ chmod +x <file_name>
 
+#to check if a record already exisits in db (to prevent duplication)
+# if self.id
+#     self.update
+#   else
+#     .save/create
+# end 
+
 #Create an Exhibit (what artist, what museum - list them all?)
 #Purchase a Work (by which artist? create new artist and painting? from painting class Artist.new)
 #Update Records 

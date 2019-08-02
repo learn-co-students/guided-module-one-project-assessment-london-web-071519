@@ -14,6 +14,11 @@ def start_tty_loop
         that = next_do(this)
         here = next_do(that)
         there = next_do(here)
+        near = next_do(there)
+        far = next_do(near)
+        home = next_do(far)
+        away = next_do(home)
+        inefficient = next_do(away)
         end
     end 
     

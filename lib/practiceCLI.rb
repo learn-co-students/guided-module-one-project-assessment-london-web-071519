@@ -1,5 +1,5 @@
-# old_logger = ActiveRecord::Base.logger
-# ActiveRecord::Base.logger = nil
+old_logger = ActiveRecord::Base.logger
+ActiveRecord::Base.logger = nil
 # #To turn it back on:
 # #ActiveRecord::Base.logger = old_logger
 
