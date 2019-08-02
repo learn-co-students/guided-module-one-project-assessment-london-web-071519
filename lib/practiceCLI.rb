@@ -178,8 +178,9 @@
 #             puts "What is the new value?"
 #             new_value = gets.strip
 #             work_to_update = Work.all.find_by_title(work)
-#             work_to_update.value = new_value
-#             work_to_update.save
+#             work_to_update.update(value: new_value) 
+#             # work_to_update.value = new_value
+#             # work_to_update.save
 #             puts "This record has been updated"
 #                 update_loop
 #         else puts "It looks like that work isn't in our collection? Would you like to add it?"
@@ -201,8 +202,7 @@
 #     puts "What is the artist's year of death?"
 #     new_dod = gets.strip 
 #     passed = Artist.all.find_by_name(name_artist)
-#     passed.dod = new_dod
-#     passed.save 
+#     passed.update(dod: new_dod) 
 #     puts "This record has been updated"
 #         update_loop
 # end 

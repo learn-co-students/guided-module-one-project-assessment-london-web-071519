@@ -48,17 +48,17 @@ Retrieve records from the City's database, specifically:
 
 * The names of the artists represented in the City's collection 
 * The most valuable work currently in the City's collection 
-* Find an exhibit by artist and museum
+* Check at which museums an artist has been featured
 * All the works in the City's collection witin a 20-year window of an input year 
 * If an artist has been featured in an exhibit in the database 
 * Randomly selected works to feature 
+
 
 ### Screenshots 
 
 ### Notes 
 
 * this app defaults to the American convention month-day 
-* the default start date for an exhibit is today; the default date of death for an artist is nil 
 * this app presumes that all works are the common property of the City rather than belonging to a specific museum
 * this app presumes that all works by an aftist are included in any exhibit
 

@@ -177,8 +177,7 @@ def update_value
         if Work.titles.include?(work)
             new_value = PROMPT.ask("What is the new value?")
             work_to_update = Work.all.find_by_title(work)
-            work_to_update.value = new_value
-            work_to_update.save
+            work_to_update.update(value: new_value)
             PROMPT.say("This record has been updated")
                 update_loop
         else response = PROMPT.say("It looks like that work isn't in our collection? Would you like to add it?")
@@ -196,8 +195,7 @@ def update_dod
     new_artist = PROMPT.ask("Which artist would you like to update?")
     new_dod = PROMPT.ask("What is the artist's year of death?")
     passed = Artist.all.find_by_name(new_artist)
-    passed.dod = new_dod
-    passed.save 
+    passed.update(dod: new_dod)
     PROMPT.say("This record has been updated")
         update_loop
 end 
