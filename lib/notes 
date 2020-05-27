@@ -1,0 +1,193 @@
+#!/usr/bin/env ruby per https://learn.co/tracks/bootcamp-prep/ruby-fundamentals/command-line-applications/cli-applications-in-ruby 
+# ruby bin/< your file name >
+# $ chmod +x <file_name>
+
+#to check if a record already exisits in db (to prevent duplication)
+# if self.id
+#     self.update
+#   else
+#     .save/create
+# end 
+
+#Create an Exhibit (what artist, what museum - list them all?)
+#Purchase a Work (by which artist? create new artist and painting? from painting class Artist.new)
+#Update Records 
+#Delete Records eg Destroy a Work, sell a work  
+#End Exhibit (?)
+#Retrieve Information about exhibits, artistis, paintings 
+
+# def most_valuable
+#     puts ""
+#     work = Work.most_valuable
+#     puts work.title 
+#     puts work.value 
+#     puts work.year 
+#     puts work.artist.name
+#     retrieve_loop
+# end 
+
+
+# #options - all the artists, all the museums, all the exhibits, all the works 
+# #options - museums 
+#     #all the messages used at the museum 
+#     #all the paintings which have appeared at the musuem 
+#     #name 
+
+# #options - exhibits 
+#     #all the works in a given exhibit 
+#     #start date
+#     #end date
+#     #musuem 
+#     #artist 
+
+# #options - artists 
+#     #date of birth 
+#     #date of death 
+#     #works 
+#     #name 
+#     #artist with most works in Bmore 
+#     #which artists have appeared in exhibits 
+#     #which artists have not appeared in exhibits 
+
+# #options - works
+#     #price of work 
+#     #date of creation 
+#     #most valuable painting in collection 
+#     #title
+#     #artist 
+#     #find random work to promote on website 
+#     #all works created within a 20-year window of a specific year 
+# end 
+
+# def update_end_date ### this needs to be redone 
+    #     puts "What exhibit would you like to update? Please provide the artist name:"
+    #     puts "" 
+    #     Artist.names
+    #     artist = gets.strip 
+
+# elsif update_new == "The end date for an exhibit" || update_new == "3"
+#     update_end_date
+
+    #     puts "Current End Date"
+    #     Exhibit.all_end_date
+    #     end_date = gets.strip
+    #     puts "New End Date"
+    #     new_end_date = gets.strip
+    #      if Exhibit.find_exhibit_by_name(artist, end_date) 
+    #          exhibit_update = Exhibit.find_exhibit_by_name(artist, end_date) 
+    #          exhibit_update.end_date = new_end_date
+    #          exhibit_update.save
+    #          puts "This record has been updated"
+    #          update_loop
+    #      else
+    #         puts "I dont see the requested exhibit, would you like to create a new exhibit?"
+    #         response = gets.strip 
+    #         if response == "y" || response == "yes" || response == "please"
+    #             create_record
+    #         else 
+    #             update_loop
+    #         end 
+    #     end 
+    # end 
+
+
+      #   puts "4 The titles of all the works that have appeared in a specific museum"
+      
+#     def works_by_museum
+#         puts "What museum are you interested in learning about?"
+#         Museum.all
+#         museum = gets.strip
+#         id = Museum.all.find_by(name: museum).id
+#         exhibits = Exhibit.all.find_by(museum_id: id)
+#         exhibits.artist.works.each do |work|
+#             puts work.title
+#             retrieve_loop
+#     end r
+#  end 
+
+ # def Artist.exhibits #find which artists have not yet appeared in their own exhibit 
+    #     #this currently finds the oposit 
+    #     array = []
+    #     Exhibit.all.each do |exhibit|
+    #         Artist.all.each do |artist|
+    #        array << exhibit.artist 
+    #  end
+    # end 
+    #  array.uniq
+    # end 
+
+
+
+
+# def works_exist 
+#     if Work.by_period(year).length == 0
+#          puts "No works exist in Baltimore's collection. Would you like to donate one?" 
+#          response = gets.strip 
+#          if response == "y" || response == "yes" || response == "please"
+#              create_new_work
+#          else puts period 
+#          end 
+#      end 
+#  end 
+    # if Work.by_period(year) == nil 
+    #     puts "No works exist in Baltimore's collection. Would you like to donate one?" 
+    #     [2] pry(main)* end 
+
+ # def artist_exhibit(artist) 
+        
+    #     exhibits
+    # end 
+
+
+
+    # puts "At what museum did the exhibit take place?"
+    #     Museum.all_museums
+    #     puts ""
+    #     museum = gets.strip 
+    #         Exhibit.all.each do |exhibit| 
+    #          if exhibit.artist.name == artist && exhibit.museum.name == museum
+    #             puts "This exhibit began on #{exhibit.start_date} and will/did end on #{exhibit.end_date}." 
+    #             retrieve_loop
+    #             else 
+    #                puts "No such exhibit exists in our database." 
+    #                create_loop
+    #             end
+    #         end
+
+
+
+    # def Exhibit.find_exhibit_by_name(artist, museum)
+    #     Exhibit.all.each do |exhibit| 
+    #         if exhibit.artist.name == artist && exhibit.museum.name == museum
+    #           puts "This exhibit began on #{exhibit.start_date} and will/did end on #{exhibit.end_date}." 
+    #         else 
+    #           puts "No such exhibit exists in our database. Would you like to create one?"
+    #             response = gets.strip 
+    #               if response == "y" || response == "yes" || response == "please"
+    #                     create_record
+    #                      else 
+    #                       retrieve_loop
+    #                    end  
+    #         end 
+    #     end 
+    # end 
+
+
+#     def Exhibit.find_exhibit_by_end(end_date) 
+#         Exhibit.all.select {|exhibit| exhibit.end_date == end_date}
+#     end 
+
+#     def Exhibit.find_by(artist, end_date)
+#         if Exhibit.find_exhibit_by_name(artist) && Exhibit.find_exhibit_by_end(end_date) 
+#             var1 = Exhibit.find_exhibit_by_end(end_date).map {|exhibit| exhibit.end_date}.pop
+#         end
+#     end 
+
+#     # def add_update_description(message)
+#     #     "#{message}"
+#     # end 
+#     var1   
+
+    # def artist_exhibit(artist)
+    #     Exhibit.all.find_by_artist(artist) 
+    # end 

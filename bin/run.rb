@@ -1,3 +1,8 @@
 require_relative '../config/environment'
 
-puts "hello world"
+# binding.pry
+	
+start_tty_loop
+
+# start_cli_loop
+
